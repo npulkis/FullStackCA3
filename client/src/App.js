@@ -6,6 +6,9 @@ import {BrowserRouter, Route,Switch} from "react-router-dom";
 // import Register from "./components/Register";
 // import Login from "./components/Login";
 import LoginRegister from "./components/LoginRegister/LoginRegister";
+import addProduct from "./components/addProduct";
+import Products from "./components/Products";
+
 
 
 
@@ -18,11 +21,13 @@ export default class App extends Component{
 
             <div>
                 <NavBar/>
-                <div className="container">
+                <div >
                 <BrowserRouter>
                     <Switch>
                         {/*<Route exact path={"/register"} component={Register}/>*/}
                         <Route exact path={"/login"} component={LoginRegister}/>
+                        <Route exact path={"/add"} component={addProduct}/>
+                        <Route exact path={"/products"} component={Products}/>
                     </Switch>
 
                 </BrowserRouter>

@@ -23,7 +23,7 @@ router.post(`/users/reset_user_collection`, (req, res) =>
 })
 
 
-router.post(`/users/register/:name/:email/:password`, (req,res) =>
+router.post(`/users/:name/:email/:password`, (req,res) =>
 {
     // If a user with this email does not already exist, then create new user
     usersModel.findOne({email:req.params.email}, (uniqueError, uniqueData) =>

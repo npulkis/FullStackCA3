@@ -6,6 +6,7 @@ import { SERVER_HOST} from "../config/global_constants";
 import {Link, Redirect} from "react-router-dom";
 
 
+
 export default class Register extends Component
 {
     constructor(props)

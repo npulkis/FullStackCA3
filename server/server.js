@@ -1,3 +1,5 @@
+const createError = require('http-errors');
+
 // Server-side global variables
 require(`dotenv`).config({path:`./config/.env`})
 
@@ -15,7 +17,8 @@ app.use(require(`cors`)({credentials: true, origin: process.env.LOCAL_HOST}))
 
 
 // Routers
-app.use(require(`./routes/users`))
+app.use(require(`./routes/products`,'./routes/users'))
+
 
 
 // Port

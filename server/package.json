@@ -15,6 +15,10 @@
     "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "mongodb": "^4.3.1",
-    "mongoose": "^5.6.9"
+    "mongoose": "^5.6.9",
+    "multer": "^1.4.4"
+  },
+  "devDependencies": {
+    "http-errors": "^2.0.0"
   }
 }
