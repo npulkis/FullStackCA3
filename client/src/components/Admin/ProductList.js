@@ -56,7 +56,7 @@ export class ProductList extends Component{
                     <th>{product.name}</th>
                     <th>{product.category}</th>
                     <th>{product.stock}</th>
-                    <th>  <th> <Link to= {"/EditProduct/" + product._id}>
+                    <th> <Link to= {"/EditProduct/" + product._id}>
                         <Button variant="primary">Edit</Button>
                     </Link>
                         <Link to= {"/DeleteProduct/" + product._id}>
