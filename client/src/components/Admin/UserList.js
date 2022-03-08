@@ -37,7 +37,7 @@ export class UserList extends Component{
         return(
 
             <div>
-                <h1>Products List</h1>
+                <h1>User List</h1>
 
                 <Table striped bordered hover size="sm">
                     <thead>
