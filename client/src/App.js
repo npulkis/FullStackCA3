@@ -9,6 +9,8 @@ import LoginRegister from "./components/LoginRegister/LoginRegister";
 import addProduct from "./components/addProduct";
 import Products from "./components/Products";
 import addCategory from "./components/addCategory";
+import {productList} from "./components/productList";
+import DeleteProduct from "./components/DeleteProduct";
 
 
 
@@ -30,6 +32,8 @@ export default class App extends Component{
                         <Route exact path={"/add"} component={addProduct}/>
                         <Route exact path={"/products"} component={Products}/>
                         <Route exact path={"/addc"} component={addCategory}/>
+                        <Route exact path={"/plist"} component={productList}/>
+                        <Route exact path={"/DeleteProduct/:id"} component={DeleteProduct}/>
                     </Switch>
 
                 </BrowserRouter>

@@ -12,6 +12,7 @@ export default class Product extends Component{
                 <Card.Body>
                     <Card.Title> {product.name}</Card.Title>
                     <Card.Text>{product.description}</Card.Text>
+                    <Card.Text>Category:{product.category}</Card.Text>
                     <Card.Text>Stock:{product.stock}</Card.Text>
                 </Card.Body>
             </Card>

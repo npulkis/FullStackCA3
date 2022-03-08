@@ -18,8 +18,16 @@ router.get(`/products`, (req,res)=>
     })
 })
 
+router.get(`/categories`,(req,res)=>
+{
+    categoriesModel.find((error,data) =>
+    {
+        res.json(data)
+    })
+})
 
-router.post(`/products/add/:name/:description/:stock`,upload.single("productPhoto"), (req,res) =>
+
+router.post(`/products/add/:name/:description/:category/:stock`,upload.single("productPhoto"), (req,res) =>
 {
     if(!req.file)
     {
@@ -40,7 +48,7 @@ router.post(`/products/add/:name/:description/:stock`,upload.single("productPhot
         else
         {
 
-                productsModel.create({name:req.params.name,description:req.params.description,stock:req.params.stock,productPhotoFilename:req.file.filename}, (err, data) =>
+                productsModel.create({name:req.params.name,description:req.params.description,category:req.params.category,stock:req.params.stock,productPhotoFilename:req.file.filename}, (err, data) =>
                 {
                     if(data)
                     {
@@ -79,6 +87,14 @@ router.post(`/products/add_category/:category`,(req,res) => {
                 }
             })
         }
+    })
+})
+
+router.delete(`/products/:id`, (req, res) =>
+{
+    productsModel.findByIdAndRemove(req.params.id, (error, data) =>
+    {
+        res.json(data)
     })
 })
 

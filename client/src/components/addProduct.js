@@ -10,10 +10,33 @@ export default class addProduct extends Component{
             name:"",
             description:"",
             stock:0,
-            images:null
+            images:null,
+            category:"",
+            categories:[]
         }
     }
 
+
+    componentDidMount(){
+
+        axios.get(`${SERVER_HOST}/categories`)
+            .then(res =>
+            {
+                if (res.data){
+                    if (res.data.errorMessage){
+                        console.log(res.data.errorMessage)
+                    }
+                    else {
+                        console.log("categories read")
+                        this.setState({categories: res.data})
+
+                    }
+                }else {
+                    console.log("categories not found")
+                }
+            })
+
+    }
     handleChange = (e) =>
     {
         this.setState({[e.target.name]: e.target.value})
@@ -32,7 +55,7 @@ export default class addProduct extends Component{
         let formData = new FormData()
         formData.append("productPhoto", this.state.images)
 
-        axios.post(`${SERVER_HOST}/products/add/${this.state.name}/${this.state.description}/${this.state.stock}`,formData,{headers: {"Content-type": "multipart/form-data"}})
+        axios.post(`${SERVER_HOST}/products/add/${this.state.name}/${this.state.description}/${this.state.category}/${this.state.stock}`,formData,{headers: {"Content-type": "multipart/form-data"}})
             .then(res =>
             {
 
@@ -70,6 +93,14 @@ export default class addProduct extends Component{
                     <Form.Label>Product Description</Form.Label>
                     <Form.Control value={this.state.description} name="description" type="text" onChange={this.handleChange}/>
                 </Form.Group>
+
+                <Form.Select name="category" onChange={this.handleChange} >
+                    <option>Select Category</option>
+                    {this.state.categories.map((category) =>(
+                        <option key={category._id} value={category.category}>{category.category}</option>
+                    ))}
+
+                </Form.Select>
 
                 <Form.Group className="mb-3" controlId="stock">
                     <Form.Label>Product Stock</Form.Label>
