@@ -106,6 +106,24 @@ router.delete(`/category/:id`, (req, res) =>
     })
 })
 
+// Update one record
+router.put(`/products/:id`, (req, res) =>
+{
+    productsModel.findByIdAndUpdate(req.params.id, {$set: req.body}, (error, data) =>
+    {
+        res.json(data)
+    })
+})
+
+// Read one record
+router.get(`/products/:id`, (req, res) =>
+{
+    productsModel.findById(req.params.id, (error, data) =>
+    {
+        res.json(data)
+    })
+})
+
 
 
 
