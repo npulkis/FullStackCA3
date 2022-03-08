@@ -1,9 +1,9 @@
 import {Component} from "react";
 import {Button, Form} from "react-bootstrap";
 import axios from "axios";
-import {SERVER_HOST} from "../config/global_constants";
+import {SERVER_HOST} from "../../config/global_constants";
 
-export default class addProduct extends Component{
+export class AddProduct extends Component{
     constructor(props) {
         super(props)
         this.state = {
@@ -83,6 +83,10 @@ export default class addProduct extends Component{
     render() {
 
         return(
+            <div>
+
+            <h1>Add Product</h1>
+
             <Form>
                 <Form.Group className="mb-3" controlId="name">
                     <Form.Label>Product Name</Form.Label>
@@ -114,6 +118,7 @@ export default class addProduct extends Component{
                 <Button onClick={this.handleSubmit}>Submit</Button>
 
             </Form>
+            </div>
         )
     }
 

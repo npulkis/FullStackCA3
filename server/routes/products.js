@@ -98,6 +98,14 @@ router.delete(`/products/:id`, (req, res) =>
     })
 })
 
+router.delete(`/category/:id`, (req, res) =>
+{
+    categoriesModel.findByIdAndRemove(req.params.id, (error, data) =>
+    {
+        res.json(data)
+    })
+})
+
 
 
 

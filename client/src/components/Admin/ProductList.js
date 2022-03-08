@@ -1,10 +1,10 @@
 import {Component} from "react";
 import axios from "axios";
-import {SERVER_HOST} from "../config/global_constants";
+import {SERVER_HOST} from "../../config/global_constants";
 import {Button, Table} from "react-bootstrap"
 import {Link} from "react-router-dom";
 
-export class productList extends Component{
+export class ProductList extends Component{
     constructor(props) {
         super(props)
         this.state = {
@@ -36,6 +36,8 @@ export class productList extends Component{
     render() {
         return(
 
+            <div>
+                <h1>Products List</h1>
 
         <Table striped bordered hover size="sm">
             <thead>
@@ -64,7 +66,7 @@ export class productList extends Component{
             ))}
             </tbody>
             </Table>
-
+            </div>
             )
     }
 }

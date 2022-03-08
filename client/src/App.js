@@ -6,11 +6,13 @@ import {BrowserRouter, Route,Switch} from "react-router-dom";
 // import Register from "./components/Register";
 // import Login from "./components/Login";
 import LoginRegister from "./components/LoginRegister/LoginRegister";
-import addProduct from "./components/addProduct";
+import addProduct from "./components/Admin/AddProduct";
 import Products from "./components/Products";
-import addCategory from "./components/addCategory";
-import {productList} from "./components/productList";
-import DeleteProduct from "./components/DeleteProduct";
+import addCategory from "./components/Admin/AddCategory";
+import {productList} from "./components/Admin/ProductList";
+import DeleteProduct from "./components/Admin/DeleteProduct";
+import {AdminMenu} from "./components/Admin/AdminMenu";
+import DeleteCategory from "./components/Admin/DeleteCategory";
 
 
 
@@ -29,11 +31,10 @@ export default class App extends Component{
                     <Switch>
                         {/*<Route exact path={"/register"} component={Register}/>*/}
                         <Route exact path={"/login"} component={LoginRegister}/>
-                        <Route exact path={"/add"} component={addProduct}/>
                         <Route exact path={"/products"} component={Products}/>
-                        <Route exact path={"/addc"} component={addCategory}/>
-                        <Route exact path={"/plist"} component={productList}/>
                         <Route exact path={"/DeleteProduct/:id"} component={DeleteProduct}/>
+                        <Route exact path={"/DeleteCategory/:id"} component={DeleteCategory}/>
+                        <Route exact path={"/admin"} component={AdminMenu}/>
                     </Switch>
 
                 </BrowserRouter>
