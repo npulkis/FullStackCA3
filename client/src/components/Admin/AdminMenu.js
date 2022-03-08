@@ -2,6 +2,7 @@ import {Component} from "react";
 import {AddCategory} from "./AddCategory";
 import {AddProduct} from "./AddProduct";
 import {ProductList} from "./ProductList";
+import {UserList} from "./UserList";
 
 export class AdminMenu extends Component{
 
@@ -11,6 +12,7 @@ export class AdminMenu extends Component{
             <AddCategory/>
             <AddProduct/>
             <ProductList/>
+            <UserList/>
             </div>
         )
     }

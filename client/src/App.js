@@ -13,6 +13,7 @@ import {productList} from "./components/Admin/ProductList";
 import DeleteProduct from "./components/Admin/DeleteProduct";
 import {AdminMenu} from "./components/Admin/AdminMenu";
 import DeleteCategory from "./components/Admin/DeleteCategory";
+import DeleteUser from "./components/Admin/DeleteUser";
 
 
 
@@ -34,6 +35,7 @@ export default class App extends Component{
                         <Route exact path={"/products"} component={Products}/>
                         <Route exact path={"/DeleteProduct/:id"} component={DeleteProduct}/>
                         <Route exact path={"/DeleteCategory/:id"} component={DeleteCategory}/>
+                        <Route exact path={"/DeleteUser/:id"} component={DeleteUser}/>
                         <Route exact path={"/admin"} component={AdminMenu}/>
                     </Switch>
 

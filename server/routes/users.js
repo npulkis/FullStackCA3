@@ -2,6 +2,7 @@ const router = require(`express`).Router()
 
 const usersModel = require(`../models/users`)
 const bcrypt = require('bcrypt')
+const categoriesModel = require("../models/categories");
 
 
 // IMPORTANT
@@ -77,6 +78,23 @@ router.post(`/users/login/:email/:password`, (req,res) =>
         }
     })
 })
+
+router.get(`/users`,(req,res)=>
+{
+    usersModel.find((error,data) =>
+    {
+        res.json(data)
+    })
+})
+
+router.delete(`/users/:id`, (req, res) =>
+{
+    usersModel.findByIdAndRemove(req.params.id, (error, data) =>
+    {
+        res.json(data)
+    })
+})
+
 
 
 router.post(`/users/logout`, (req,res) =>
