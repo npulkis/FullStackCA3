@@ -1,9 +1,13 @@
 const router = require(`express`).Router()
 const productsModel =require('../models/products')
+const categoriesModel = require('../models/categories')
 
 const multer  = require('multer')
 const upload = multer({dest: `${process.env.UPLOADED_FILES_FOLDER}`})
 const fs = require('fs')
+const bcrypt = require("bcrypt");
+
+
 
 
 router.get(`/products`, (req,res)=>
@@ -56,5 +60,29 @@ router.post(`/products/add/:name/:description/:stock`,upload.single("productPhot
         }
     })}
 })
+
+router.post(`/products/add_category/:category`,(req,res) => {
+    categoriesModel.findOne({category:req.params.category},(uniqueError,uniqueData) =>{
+        if (uniqueData)
+        {
+            res.json({errorMessage:`Category already exists`})
+        }
+        else
+        {
+            categoriesModel.create({category:req.params.category},(err ,data) =>{
+                if (data)
+                {
+                    res.json({category: data.category})
+                }
+                else {
+                    res.json({errorMessage:`Category not added`})
+                }
+            })
+        }
+    })
+})
+
+
+
 
 module.exports = router

@@ -8,6 +8,7 @@ import {BrowserRouter, Route,Switch} from "react-router-dom";
 import LoginRegister from "./components/LoginRegister/LoginRegister";
 import addProduct from "./components/addProduct";
 import Products from "./components/Products";
+import addCategory from "./components/addCategory";
 
 
 
@@ -28,6 +29,7 @@ export default class App extends Component{
                         <Route exact path={"/login"} component={LoginRegister}/>
                         <Route exact path={"/add"} component={addProduct}/>
                         <Route exact path={"/products"} component={Products}/>
+                        <Route exact path={"/addc"} component={addCategory}/>
                     </Switch>
 
                 </BrowserRouter>
