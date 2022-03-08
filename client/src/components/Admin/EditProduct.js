@@ -108,7 +108,7 @@ export class EditProduct extends Component{
             <div>
                 {this.state.redirectToAdminMenu ? <Redirect to="/admin"/> : null}
 
-                <h1>Edit Product</h1>
+                <h1>Edit Product.</h1>
 
                 <Form>
                     <Form.Group className="mb-3" controlId="name">
