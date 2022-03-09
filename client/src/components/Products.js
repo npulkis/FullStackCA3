@@ -101,6 +101,12 @@ export default class Products extends Component{
 
                 </Form.Select>
 
+                <Form.Select>
+                    <option>Sort</option>
+                    <option>Sort price low-high</option>
+                    <option>Sort price high-low</option>
+                </Form.Select>
+
                 <Row>
                     {this.state.products.map((product) => (
                         <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
