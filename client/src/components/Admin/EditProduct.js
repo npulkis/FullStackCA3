@@ -11,8 +11,9 @@ export class EditProduct extends Component{
             name:"",
             description:"",
             category:"",
-            stock:null,
+            stock:"",
             categories:[],
+            price:"",
             RedirectToAdminMenu:false
         }
     }
@@ -50,7 +51,8 @@ export class EditProduct extends Component{
                             name: res.data.name,
                             description: res.data.description,
                             category: res.data.category,
-                            stock: res.data.stock
+                            stock: res.data.stock,
+                            price: res.data.price
                         })
                     }
                 }
@@ -76,7 +78,8 @@ export class EditProduct extends Component{
             name: this.state.name,
             description: this.state.description,
             category:this.state.category,
-            stock: this.state.stock
+            stock: this.state.stock,
+            price: this.state.price
         }
 
         axios.put(`${SERVER_HOST}/products/${this.props.match.params.id}`, productObject)
@@ -132,6 +135,11 @@ export class EditProduct extends Component{
                     <Form.Group className="mb-3" controlId="stock">
                         <Form.Label>Product Stock</Form.Label>
                         <Form.Control value={this.state.stock} name="stock" type="text" onChange={this.handleChange}/>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="stock">
+                        <Form.Label>Product Price</Form.Label>
+                        <Form.Control value={this.state.price} name="price" type="text" onChange={this.handleChange}/>
                     </Form.Group>
 
                     <Button onClick={this.handleSubmit}>Submit</Button>

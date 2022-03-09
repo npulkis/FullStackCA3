@@ -9,12 +9,14 @@ export class AddCategory extends Component{
         super(props)
         this.state = {
             category:"",
-            categories:[]
+            categories:[],
+            categoryAdded:false
         }
     }
 
 
     componentDidMount(){
+
 
         axios.get(`${SERVER_HOST}/categories`)
             .then(res =>
@@ -25,7 +27,7 @@ export class AddCategory extends Component{
                     }
                     else {
                         console.log("categories read")
-                        this.setState({categories: res.data})
+                        this.setState({categories: res.data,categoryAdded:false})
 
                     }
                 }else {
@@ -58,6 +60,8 @@ export class AddCategory extends Component{
                     else // user successfully registered
                     {
                         console.log("category Added")
+                        this.setState({categoryAdded:true})
+                        this.componentDidMount();
 
                     }
                 }
@@ -66,7 +70,6 @@ export class AddCategory extends Component{
                     console.log("Category failed to add")
                 }
             })
-
     }
 
 

@@ -9,8 +9,9 @@ export class AddProduct extends Component{
         this.state = {
             name:"",
             description:"",
-            stock:0,
-            images:null,
+            stock:"",
+            price:"",
+            images:"",
             category:"",
             categories:[]
         }
@@ -55,7 +56,7 @@ export class AddProduct extends Component{
         let formData = new FormData()
         formData.append("productPhoto", this.state.images)
 
-        axios.post(`${SERVER_HOST}/products/add/${this.state.name}/${this.state.description}/${this.state.category}/${this.state.stock}`,formData,{headers: {"Content-type": "multipart/form-data"}})
+        axios.post(`${SERVER_HOST}/products/add/${this.state.name}/${this.state.description}/${this.state.category}/${this.state.stock}/${this.state.price}`,formData,{headers: {"Content-type": "multipart/form-data"}})
             .then(res =>
             {
 
@@ -68,6 +69,12 @@ export class AddProduct extends Component{
                     else // user successfully registered
                     {
                         console.log("Product Added")
+                        this.setState({ name:"",
+                            description:"",
+                            stock:"",
+                            price:"",
+                            images:"",
+                            category:""});
 
                     }
                 }
@@ -109,6 +116,11 @@ export class AddProduct extends Component{
                 <Form.Group className="mb-3" controlId="stock">
                     <Form.Label>Product Stock</Form.Label>
                     <Form.Control value={this.state.stock} name="stock" type="text" onChange={this.handleChange}/>
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="price">
+                    <Form.Label>Product Price</Form.Label>
+                    <Form.Control value={this.state.price} name="price" type="text" onChange={this.handleChange}/>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="images">

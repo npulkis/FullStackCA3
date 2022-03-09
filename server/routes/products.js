@@ -27,7 +27,7 @@ router.get(`/categories`,(req,res)=>
 })
 
 
-router.post(`/products/add/:name/:description/:category/:stock`,upload.single("productPhoto"), (req,res) =>
+router.post(`/products/add/:name/:description/:category/:stock/:price`,upload.single("productPhoto"), (req,res) =>
 {
     if(!req.file)
     {
@@ -48,7 +48,7 @@ router.post(`/products/add/:name/:description/:category/:stock`,upload.single("p
         else
         {
 
-                productsModel.create({name:req.params.name,description:req.params.description,category:req.params.category,stock:req.params.stock,productPhotoFilename:req.file.filename}, (err, data) =>
+                productsModel.create({name:req.params.name,description:req.params.description,category:req.params.category,stock:req.params.stock,price:req.params.price,productPhotoFilename:req.file.filename}, (err, data) =>
                 {
                     if(data)
                     {
@@ -125,6 +125,17 @@ router.get(`/products/:id`, (req, res) =>
     })
 })
 
+
+//Search records
+router.get(`/products/:Query`, (req, res) =>{
+
+
+    productsModel.findOne({name: req.params.Query},(error,data) =>
+    {
+        res.json(data)
+    })
+
+})
 
 
 module.exports = router

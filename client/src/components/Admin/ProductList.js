@@ -32,6 +32,7 @@ export class ProductList extends Component{
                     console.log("Products not found")
                 }
             })
+
     }
     render() {
         return(
@@ -46,6 +47,7 @@ export class ProductList extends Component{
                     <th>Product Name</th>
                     <th>Category</th>
                     <th>Stock</th>
+                    <th>Price</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -56,6 +58,7 @@ export class ProductList extends Component{
                     <th>{product.name}</th>
                     <th>{product.category}</th>
                     <th>{product.stock}</th>
+                    <th>€{product.price}</th>
                     <th> <Link to= {"/EditProduct/" + product._id}>
                         <Button variant="primary">Edit</Button>
                     </Link>
