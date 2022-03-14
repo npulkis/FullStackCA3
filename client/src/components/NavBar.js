@@ -3,6 +3,7 @@ import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar"
 import Nav from  'react-bootstrap/Nav'
 import Register from "./Register";
+import {ACCESS_LEVEL_ADMIN, ACCESS_LEVEL_GUEST} from "../config/global_constants";
 
 
 export default class NavBar extends Component{
@@ -17,7 +18,10 @@ export default class NavBar extends Component{
                     <Nav className="ms-auto">
                         <Nav.Link href={"/"}>Home</Nav.Link>
                         <Nav.Link href={"/cart"}>Basket</Nav.Link>
-                        <Nav.Link href={"/login"}>Sign In</Nav.Link>
+
+                        {localStorage.accessLevel > ACCESS_LEVEL_GUEST ? <Nav.Link href={"/logout"}>Logout</Nav.Link> : <Nav.Link href={"/login"}>Sign In</Nav.Link>}
+                        {localStorage.accessLevel >= ACCESS_LEVEL_ADMIN ?  <Nav.Link href={"/admin"}>Admin Menu</Nav.Link> : null }
+
                     </Nav>
                 </Container>
             </Navbar>

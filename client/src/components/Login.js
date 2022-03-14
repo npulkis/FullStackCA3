@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import axios from "axios";
-import {SERVER_HOST} from "../config/global_constants";
+import {ACCESS_LEVEL_GUEST, SERVER_HOST} from "../config/global_constants";
 
 export default class Login extends Component{
     constructor(props)
@@ -26,6 +26,10 @@ export default class Login extends Component{
         axios.post(`${SERVER_HOST}/users/login/${this.state.loginEmail}/${this.state.loginPassword}`)
             .then(res =>
             {
+
+                localStorage.name = "GUEST"
+                localStorage.accessLevel = ACCESS_LEVEL_GUEST
+
                 if(res.data)
                 {
                     if (res.data.errorMessage)
@@ -35,6 +39,10 @@ export default class Login extends Component{
                     else // user successfully logged in
                     {
                         console.log("User logged in")
+
+                        localStorage.name = res.data.name
+                        localStorage.accessLevel = res.data.accessLevel
+                        localStorage.token = res.data.token
 
                         this.setState({isLoggedIn:true})
                     }
@@ -51,6 +59,8 @@ export default class Login extends Component{
         return(
             <div>
                 <h3>Have an account. Login</h3>
+                {this.state.isLoggedIn ? <Redirect to="/"/> : null}
+
                 <Form>
                     <Form.Group className="mb-3" controlId="loginEmail">
                         <Form.Label>Email address</Form.Label>

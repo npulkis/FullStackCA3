@@ -15,13 +15,27 @@ import {AdminMenu} from "./components/Admin/AdminMenu";
 import DeleteCategory from "./components/Admin/DeleteCategory";
 import DeleteUser from "./components/Admin/DeleteUser";
 import {EditProduct} from "./components/Admin/EditProduct";
-
+import {ACCESS_LEVEL_GUEST} from "./config/global_constants"
+import LoggedInRoute from "./components/LoggedInRoute";
+import Logout from "./components/Logout";
 
 
 
 export default class App extends Component{
 
     render() {
+
+
+
+
+        if (typeof localStorage.accessLevel === "undefined")
+        {
+            localStorage.name = "GUEST"
+            localStorage.accessLevel = ACCESS_LEVEL_GUEST
+            localStorage.token = null
+        }
+
+
 
 
         return (
@@ -38,7 +52,8 @@ export default class App extends Component{
                         <Route exact path={"/DeleteCategory/:id"} component={DeleteCategory}/>
                         <Route exact path={"/DeleteUser/:id"} component={DeleteUser}/>
                         <Route exact path={"/EditProduct/:id"} component={EditProduct}/>
-                        <Route exact path={"/admin"} component={AdminMenu}/>
+                        <LoggedInRoute exact path={"/admin"} component={AdminMenu}/>
+                        <LoggedInRoute exact path={"/logout"} component={Logout}/>
                     </Switch>
 
                 </BrowserRouter>

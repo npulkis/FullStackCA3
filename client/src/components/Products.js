@@ -1,4 +1,4 @@
-import {Component} from "react";
+import {Component, useState} from "react";
 import axios from "axios";
 import {SERVER_HOST} from "../config/global_constants";
 import {Button, Card, Col, Form, Row} from "react-bootstrap";
@@ -13,7 +13,8 @@ export default class Products extends Component{
         this.state= {
             search:"",
             products:[],
-            categories:[]
+            categories:[],
+            cart:[]
         }
     }
 
@@ -60,12 +61,21 @@ export default class Products extends Component{
         console.log(this.state)
     }
 
+
+    addToCart = (product) =>{
+        this.setState({cart:[...this.state.cart,product]})
+    };
+
+
   handleKeypress = (e) => {
         //it triggers by pressing the enter key
         if (e.keyCode === 13) {
+
+
+
            console.log("Enter Pressed")
 
-            axios.get(`${SERVER_HOST}/products/${this.state.search}`)
+            axios.get(`${SERVER_HOST}/search/${this.state.search}`)
                 .then(res =>
                 {
                     if (res.data){
@@ -81,24 +91,29 @@ export default class Products extends Component{
                         console.log("Products not found")
                     }
                 })
+            }
 
-
-        }
     };
 
+
+
     render() {
+
+
+
+
         return(
             <div>
-
+                <h1>{this.state.cart.length}</h1>
                 <MDBCol md="6">
                     <MDBInput hint="Search" type="text" name="search" onChange={this.handleChange}   onKeyUp={this.handleKeypress}/>
                 </MDBCol>
+
                 <Form.Select name="category" onChange={this.handleChange} >
                     <option>Select Category</option>
                     {this.state.categories.map((category) =>(
                         <option key={category._id} value={category.category}>{category.category}</option>
                     ))}
-
                 </Form.Select>
 
                 <Form.Select>
@@ -111,6 +126,7 @@ export default class Products extends Component{
                     {this.state.products.map((product) => (
                         <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
                             <Product product={product} />
+                            <Button onClick={()=>addToCart(product)}>Add to cart</Button>
                         </Col>
                     ))}
                 </Row>

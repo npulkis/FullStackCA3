@@ -1,6 +1,6 @@
 import {Component} from "react";
 import {Card} from "react-bootstrap";
-import placeholder from '../placeholder/placeholder.jpg'
+import placeholder from '../placeholder/placeholder.jpg';
 
 export default class Product extends Component{
 
@@ -9,7 +9,10 @@ export default class Product extends Component{
     render() {
         const { product } = this.props;
         return(
-            <Card>
+
+
+
+            <Card className="border-0" >
                 <Card.Body>
                     <Card.Img src={placeholder}/>
                     <Card.Title> {product.name}</Card.Title>

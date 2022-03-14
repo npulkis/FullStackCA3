@@ -2,6 +2,9 @@ const router = require(`express`).Router()
 
 const usersModel = require(`../models/users`)
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+
+
 const categoriesModel = require("../models/categories");
 
 
@@ -41,7 +44,10 @@ router.post(`/users/register/:name/:email/:password`, (req,res) =>
                 {
                     if(data)
                     {
-                        res.json({name: data.name})
+                        const token = jwt.sign({email: data.email, accessLevel:data.accessLevel}, process.env.JWT_PRIVATE_KEY, {algorithm: 'HS256', expiresIn:process.env.JWT_EXPIRY})
+
+                        console.log(process.env.JWT_PRIVATE_KEY)
+                        res.json({name: data.name, accessLevel:data.accessLevel, token:token})
                     }
                     else
                     {
@@ -63,7 +69,10 @@ router.post(`/users/login/:email/:password`, (req,res) =>
             {
                 if(result)
                 {
-                    res.json({name: data.name})
+                    const token = jwt.sign({email:data.email, accessLevel:data.accessLevel}, process.env.JWT_PRIVATE_KEY, {algorithm:'HS256', expiresIn:process.env.JWT_EXPIRY})
+
+
+                    res.json({name: data.name, accessLevel: data.accessLevel, token: token})
                 }
                 else
                 {

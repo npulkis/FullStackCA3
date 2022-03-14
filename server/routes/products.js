@@ -6,6 +6,7 @@ const multer  = require('multer')
 const upload = multer({dest: `${process.env.UPLOADED_FILES_FOLDER}`})
 const fs = require('fs')
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 
 
@@ -29,6 +30,14 @@ router.get(`/categories`,(req,res)=>
 
 router.post(`/products/add/:name/:description/:category/:stock/:price`,upload.single("productPhoto"), (req,res) =>
 {
+    // jwt.verify(req.headers.authorization, process.env.JWT_PRIVATE_KEY, {algorithm: "HS256"}, (err, decodedToken) =>
+    // {
+
+
+        // if(decodedToken.accessLevel >= process.env.ACCESS_LEVEL_ADMIN){
+
+
+
     if(!req.file)
     {
         res.json({errorMessage:`No file was selected to be uploaded`})
@@ -38,7 +47,7 @@ router.post(`/products/add/:name/:description/:category/:stock/:price`,upload.si
         fs.unlink(`${process.env.UPLOADED_FILES_FOLDER}/${req.file.filename}`, (error) => {res.json({errorMessage:`Only .png, .jpg and .jpeg format accepted`})})
     }else{
 
-    // If a user with this email does not already exist, then create new user
+
     productsModel.findOne({name:req.params.name}, (uniqueError, uniqueData) =>
     {
         if(uniqueData)
@@ -67,53 +76,85 @@ router.post(`/products/add/:name/:description/:category/:stock/:price`,upload.si
 
         }
     })}
+    //     }else {
+    //         res.json({errorMessage:`User not admin`})
+    //     }
+    // })
 })
 
 router.post(`/products/add_category/:category`,(req,res) => {
-    categoriesModel.findOne({category:req.params.category},(uniqueError,uniqueData) =>{
-        if (uniqueData)
-        {
-            res.json({errorMessage:`Category already exists`})
-        }
-        else
-        {
-            categoriesModel.create({category:req.params.category},(err ,data) =>{
-                if (data)
-                {
-                    res.json({category: data.category})
-                }
-                else {
-                    res.json({errorMessage:`Category not added`})
+    // jwt.verify(req.headers.authorization, process.env.JWT_PRIVATE_KEY, {algorithm: "HS256"}, (err, decodedToken) => {
+
+
+        // if(decodedToken.accessLevel >= process.env.ACCESS_LEVEL_ADMIN) {
+
+            categoriesModel.findOne({category: req.params.category}, (uniqueError, uniqueData) => {
+                if (uniqueData) {
+                    res.json({errorMessage: `Category already exists`})
+                } else {
+                    categoriesModel.create({category: req.params.category}, (err, data) => {
+                        if (data) {
+                            res.json({category: data.category})
+                        } else {
+                            res.json({errorMessage: `Category not added`})
+                        }
+                    })
                 }
             })
-        }
-    })
+
+        // }if (err){
+        //     res.json(err)
+        // }else {
+        //     res.json({errorMessage:`User not admin`})
+        // }
+    // })
 })
 
-router.delete(`/products/:id`, (req, res) =>
-{
-    productsModel.findByIdAndRemove(req.params.id, (error, data) =>
-    {
-        res.json(data)
-    })
+router.delete(`/products/:id`, (req, res) => {
+    // jwt.verify(req.headers.authorization, process.env.JWT_PRIVATE_KEY, {algorithm: "HS256"}, (err, decodedToken) => {
+
+        // if(decodedToken.accessLevel >= process.env.ACCESS_LEVEL_ADMIN) {
+            res.json(decodedToken.accessLevel)
+
+            productsModel.findByIdAndRemove(req.params.id, (error, data) => {
+                res.json(data)
+            })
+    //     }else {
+    //         res.json({errorMessage:`User not admin`})
+    //     }
+    // })
 })
 
 router.delete(`/category/:id`, (req, res) =>
 {
-    categoriesModel.findByIdAndRemove(req.params.id, (error, data) =>
-    {
-        res.json(data)
-    })
+    // jwt.verify(req.headers.authorization, process.env.JWT_PRIVATE_KEY, {algorithm: "HS256"}, (err, decodedToken) => {
+    //     if(decodedToken.accessLevel >= process.env.ACCESS_LEVEL_ADMIN) {
+
+            categoriesModel.findByIdAndRemove(req.params.id, (error, data) => {
+                res.json(data)
+            })
+    //     }else {
+    //         res.json({errorMessage: `User not admin`})
+    //     }
+    // })
 })
 
 
 // Update one record
-router.put(`/products/:id`, (req, res) =>
-{
-    productsModel.findByIdAndUpdate(req.params.id, {$set: req.body}, (error, data) =>
-    {
-        res.json(data)
-    })
+router.put(`/products/:id`, (req, res) => {
+    // jwt.verify(req.headers.authorization, process.env.JWT_PRIVATE_KEY, {algorithm: "HS256"}, (err, decodedToken) => {
+
+        // if(decodedToken.accessLevel >= process.env.ACCESS_LEVEL_ADMIN) {
+
+
+            productsModel.findByIdAndUpdate(req.params.id, {$set: req.body}, (error, data) => {
+                res.json(data)
+            })
+    //     }else {
+    //         res.json({errorMessage:`User not admin`})
+    //
+    //     }
+    // })
 })
 
 // Read one record
@@ -125,17 +166,29 @@ router.get(`/products/:id`, (req, res) =>
     })
 })
 
+//
+// //Search records
+// router.get(`/search/:search`,  (req, res) =>{
+//
+//
+//
+//
+//             let search = new RegExp(req.params.search, 'i')
+//     productsModel.find((error,data) =>
+//     {
+//         res.json(data)
+//     })
+//
+// })
 
-//Search records
-router.get(`/products/:Query`, (req, res) =>{
-
-
-    productsModel.findOne({name: req.params.Query},(error,data) =>
+router.get(`/search/:search`, (req,res)=>
+{
+    productsModel.find({name: /test/i},(error,data) =>
     {
         res.json(data)
     })
-
 })
+
 
 
 module.exports = router
