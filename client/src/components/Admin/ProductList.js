@@ -3,38 +3,18 @@ import axios from "axios";
 import {SERVER_HOST} from "../../config/global_constants";
 import {Button, Table} from "react-bootstrap"
 import {Link} from "react-router-dom";
+import {DataContext} from "../Context";
 
 export class ProductList extends Component{
-    constructor(props) {
-        super(props)
-        this.state = {
-            products: []
-        }
-    }
 
 
-    componentDidMount(){
-        axios.get(`${SERVER_HOST}/products`)
-            .then(res =>
-            {
-                if (res.data){
-                    if (res.data.errorMessage){
-                        console.log(res.data.errorMessage)
-                    }
-                    else {
-                        console.log("Products read")
-                        this.setState({products: res.data})
+    static contextType= DataContext;
 
 
-
-                    }
-                }else {
-                    console.log("Products not found")
-                }
-            })
-
-    }
     render() {
+
+        const{products} = this.context;
+
         return(
 
             <div>
@@ -52,7 +32,7 @@ export class ProductList extends Component{
                 </tr>
             </thead>
             <tbody>
-            {this.state.products.map((product)=>(
+            {products.map((product)=>(
                 <tr key={product._id}>
                     <th>{product._id}</th>
                     <th>{product.name}</th>

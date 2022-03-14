@@ -3,39 +3,17 @@ import {Button, Form, Table} from "react-bootstrap";
 import axios from "axios";
 import {SERVER_HOST} from "../../config/global_constants";
 import {Link} from "react-router-dom";
+import {DataContext} from "../Context";
 
 export class AddCategory extends Component{
     constructor(props) {
         super(props)
         this.state = {
             category:"",
-            categories:[],
             categoryAdded:false
         }
     }
-
-
-    componentDidMount(){
-
-
-        axios.get(`${SERVER_HOST}/categories`)
-            .then(res =>
-            {
-                if (res.data){
-                    if (res.data.errorMessage){
-                        console.log(res.data.errorMessage)
-                    }
-                    else {
-                        console.log("categories read")
-                        this.setState({categories: res.data,categoryAdded:false})
-
-                    }
-                }else {
-                    console.log("categories not found")
-                }
-            })
-
-    }
+    static contextType= DataContext;
 
     handleChange = (e) =>
     {
@@ -61,6 +39,8 @@ export class AddCategory extends Component{
                     {
                         console.log("category Added")
                         this.setState({categoryAdded:true})
+                        document.getElementById("category").value="";
+
                         this.componentDidMount();
 
                     }
@@ -75,6 +55,7 @@ export class AddCategory extends Component{
 
     render() {
 
+        const{categories} = this.context;
         return(
 
             <div>
@@ -88,7 +69,7 @@ export class AddCategory extends Component{
                         </tr>
                     </thead>
                     <tbody>
-                    {this.state.categories.map((category)=>(
+                    {categories.map((category)=>(
                         <tr key={category._id}>
                             <th>{category.category}</th>
                             <th>
@@ -105,7 +86,7 @@ export class AddCategory extends Component{
             <Form>
                 <Form.Group className="mb-3" controlId="category">
                     <Form.Label>Category Name</Form.Label>
-                    <Form.Control value={this.state.name} name="category" type="text" onChange={this.handleChange}/>
+                    <Form.Control value={this.state.name} name="category" id="category" type="text" onChange={this.handleChange}/>
                 </Form.Group>
 
                 <Button onClick={this.handleSubmit}>Submit</Button>

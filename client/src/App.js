@@ -18,6 +18,7 @@ import {EditProduct} from "./components/Admin/EditProduct";
 import {ACCESS_LEVEL_GUEST} from "./config/global_constants"
 import LoggedInRoute from "./components/LoggedInRoute";
 import Logout from "./components/Logout";
+import {DataProvider} from "./components/Context";
 
 
 
@@ -39,7 +40,7 @@ export default class App extends Component{
 
 
         return (
-
+        <DataProvider>
             <div>
                 <NavBar/>
                 <div >
@@ -59,12 +60,9 @@ export default class App extends Component{
                 </BrowserRouter>
                 </div>
             </div>
+        </DataProvider>
 
-
-
-
-
-        )
+        );
     }
 
 

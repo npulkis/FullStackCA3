@@ -1,5 +1,5 @@
 import {Component} from "react";
-import {Card} from "react-bootstrap";
+import {Button, Card} from "react-bootstrap";
 import placeholder from '../placeholder/placeholder.jpg';
 
 export default class Product extends Component{
@@ -20,6 +20,7 @@ export default class Product extends Component{
                     {/*<Card.Text>Category:{product.category}</Card.Text>*/}
                     {/*<Card.Text>Stock:{product.stock}</Card.Text>*/}
                     <Card.Text>Price: €{product.price}</Card.Text>
+                    <Button>Add to cart</Button>
                 </Card.Body>
             </Card>
 

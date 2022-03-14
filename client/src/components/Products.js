@@ -4,6 +4,8 @@ import {SERVER_HOST} from "../config/global_constants";
 import {Button, Card, Col, Form, Row} from "react-bootstrap";
 import Product from "./Product";
 import { MDBCol, MDBInput } from "mdb-react-ui-kit";
+import {DataContext} from "./Context";
+import placeholder from "../placeholder/placeholder.jpg";
 
 
 export default class Products extends Component{
@@ -11,60 +13,17 @@ export default class Products extends Component{
         super(props)
 
         this.state= {
-            search:"",
-            products:[],
-            categories:[],
-            cart:[]
+            search:""
         }
     }
 
-    componentDidMount() {
-        axios.get(`${SERVER_HOST}/products`)
-            .then(res =>
-            {
-                if (res.data){
-                    if (res.data.errorMessage){
-                        console.log(res.data.errorMessage)
-                    }
-                    else {
-                        console.log("Products read")
-                        this.setState({products: res.data})
-
-                    }
-                }else {
-                    console.log("Products not found")
-                }
-            })
-
-        axios.get(`${SERVER_HOST}/categories`)
-            .then(res =>
-            {
-                if (res.data){
-                    if (res.data.errorMessage){
-                        console.log(res.data.errorMessage)
-                    }
-                    else {
-                        console.log("categories read")
-                        this.setState({categories: res.data})
-
-                    }
-                }else {
-                    console.log("categories not found")
-                }
-            })
-
-    }
+    static contextType= DataContext;
 
     handleChange = (e) =>
     {
         this.setState({[e.target.name]: e.target.value})
         console.log(this.state)
     }
-
-
-    addToCart = (product) =>{
-        this.setState({cart:[...this.state.cart,product]})
-    };
 
 
   handleKeypress = (e) => {
@@ -99,19 +58,19 @@ export default class Products extends Component{
 
     render() {
 
-
+    const{products,categories,addCart} = this.context;
 
 
         return(
             <div>
-                <h1>{this.state.cart.length}</h1>
+                {/*<h1>{cart.length}</h1>*/}
                 <MDBCol md="6">
                     <MDBInput hint="Search" type="text" name="search" onChange={this.handleChange}   onKeyUp={this.handleKeypress}/>
                 </MDBCol>
 
                 <Form.Select name="category" onChange={this.handleChange} >
                     <option>Select Category</option>
-                    {this.state.categories.map((category) =>(
+                    {categories.map((category) =>(
                         <option key={category._id} value={category.category}>{category.category}</option>
                     ))}
                 </Form.Select>
@@ -123,10 +82,21 @@ export default class Products extends Component{
                 </Form.Select>
 
                 <Row>
-                    {this.state.products.map((product) => (
+                    {products.map((product) => (
                         <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                            <Product product={product} />
-                            <Button onClick={()=>addToCart(product)}>Add to cart</Button>
+                            <Card className="border-0" >
+                                <Card.Body>
+                                    <Card.Img src={placeholder}/>
+                                    <Card.Title> {product.name}</Card.Title>
+                                    {/*<Card.Text>{product.description}</Card.Text>*/}
+                                    {/*<Card.Text>Category:{product.category}</Card.Text>*/}
+                                    {/*<Card.Text>Stock:{product.stock}</Card.Text>*/}
+                                    <Card.Text>Price: €{product.price}</Card.Text>
+                                    <Button onClick={()=> addCart(product._id)}>Add to cart</Button>
+                                    <Button>View</Button>
+                                </Card.Body>
+                            </Card>
+
                         </Col>
                     ))}
                 </Row>
