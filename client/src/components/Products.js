@@ -26,46 +26,32 @@ export default class Products extends Component{
     }
 
 
-  handleKeypress = (e) => {
-        //it triggers by pressing the enter key
-        if (e.keyCode === 13) {
 
-
-
-           console.log("Enter Pressed")
-
-            axios.get(`${SERVER_HOST}/search/${this.state.search}`)
-                .then(res =>
-                {
-                    if (res.data){
-                        if (res.data.errorMessage){
-                            console.log(res.data.errorMessage)
-                        }
-                        else {
-                            console.log("Products read")
-                            this.setState({products: res.data})
-
-                        }
-                    }else {
-                        console.log("Products not found")
-                    }
-                })
-            }
-
-    };
+  // handleKeypress = (e) => {
+  //       //it triggers by pressing the enter key
+  //       if (e.keyCode === 13) {
+  //
+  //
+  //
+  //          console.log("Enter Pressed")
+  //
+  //
+  //           }
+  //
+  //   };
 
 
 
     render() {
 
-    const{products,categories,addCart} = this.context;
+    const{products,categories,addCart,searchProducts} = this.context;
 
 
         return(
             <div>
                 {/*<h1>{cart.length}</h1>*/}
                 <MDBCol md="6">
-                    <MDBInput hint="Search" type="text" name="search" onChange={this.handleChange}   onKeyUp={this.handleKeypress}/>
+                    <MDBInput hint="Search" type="text" name="search" onChange={this.handleChange}   onKeyUp={()=>searchProducts(this.state.search)}/>
                 </MDBCol>
 
                 <Form.Select name="category" onChange={this.handleChange} >
@@ -78,7 +64,7 @@ export default class Products extends Component{
                 <Form.Select>
                     <option>Sort</option>
                     <option>Sort price low-high</option>
-                    <option>Sort price high-low</option>
+                    <option on>Sort price high-low</option>
                 </Form.Select>
 
                 <Row>

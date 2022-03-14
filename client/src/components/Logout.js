@@ -2,6 +2,7 @@ import React, {Component} from "react"
 import {Redirect} from "react-router-dom"
 import axios from "axios"
 import {ACCESS_LEVEL_GUEST, SERVER_HOST} from "../config/global_constants"
+import {DataContext} from "./Context";
 
 
 export default class Logout extends Component
@@ -14,6 +15,7 @@ export default class Logout extends Component
             isLoggedIn:true
         }
     }
+    static contextType = DataContext;
 
 
   componentDidMount()
@@ -34,7 +36,11 @@ export default class Logout extends Component
 
                         localStorage.name = "GUEST"
                         localStorage.accessLevel = ACCESS_LEVEL_GUEST
+                        // localStorage.dataCart = []
+                        // localStorage.dataTotal = 0
+
                         this.setState({isLoggedIn:false})
+
                     }
                 }
                 else
@@ -47,9 +53,11 @@ export default class Logout extends Component
 
     render()
     {
+        const {clearCart} = this.context;
+
         return (
             <div>
-
+                {clearCart()}
                 {!this.state.isLoggedIn ? <Redirect to="/"/> : null}
 
             </div>

@@ -11,13 +11,15 @@ export class DataProvider extends Component{
         products:[],
         cart:[],
         categories:[],
-        total:1
+        total:0
     }
 
 
     componentDidUpdate(){
+
         localStorage.setItem('dataCart', JSON.stringify(this.state.cart))
         localStorage.setItem('dataTotal', JSON.stringify(this.state.total))
+
     };
 
 
@@ -32,7 +34,7 @@ export class DataProvider extends Component{
                     }
                     else {
                         console.log("Products read")
-                        this.setState({products: res.data})
+                        this.setState({products: res.data.data})
 
                     }
                 }else {
@@ -69,6 +71,10 @@ export class DataProvider extends Component{
 
     }
 
+    clearCart = () =>{
+        this.setState({cart: []})
+        this.setState({total: 0})
+    }
 
     addCart = (id) =>{
         const {products, cart} = this.state;
@@ -130,13 +136,72 @@ export class DataProvider extends Component{
         this.setState({total: res})
     };
 
+    filterDesc = () =>{
+        axios.get(`${SERVER_HOST}/products/desc`)
+            .then(res =>
+            {
+                if (res.data){
+                    if (res.data.errorMessage){
+                        console.log(res.data.errorMessage)
+                    }
+                    else {
+                        console.log("Products read")
+                        this.setState({products: res.data.data})
+
+                    }
+                }else {
+                    console.log("Products not found")
+                }
+            })
+    }
+
+    searchProducts = (search) =>{
+        if (search === ""){
+            axios.get(`${SERVER_HOST}/products`)
+                .then(res =>
+                {
+                    if (res.data){
+                        if (res.data.errorMessage){
+                            console.log(res.data.errorMessage)
+                        }
+                        else {
+                            console.log("Products read")
+                            this.setState({products: res.data.data})
+
+                        }
+                    }else {
+                        console.log("Products not found")
+                    }
+                })
+        }else {
+            axios.get(`${SERVER_HOST}/search/${search}`)
+                .then(res =>
+                {
+                    if (res.data){
+                        if (res.data.errorMessage){
+                            console.log(res.data.errorMessage)
+                        }
+                        else {
+                            console.log("Products read")
+                            this.setState({products: res.data.data})
+
+                        }
+                    }else {
+                        console.log("Products not found")
+                    }
+                })
+        }
+
+
+    }
+
 
     provider;
     render() {
 
         const {products,categories,cart,total}=this.state
-        const {addCart,removeProduct,decrease,increase,getTotal}=this;
-        this.provider=<DataContext.Provider value={{products,categories,addCart,cart,total,removeProduct,decrease,increase,getTotal}}>
+        const {addCart,removeProduct,decrease,increase,getTotal,clearCart,searchProducts}=this;
+        this.provider=<DataContext.Provider value={{products,categories,addCart,cart,total,removeProduct,decrease,increase,getTotal,clearCart,searchProducts}}>
             {this.props.children}
         </DataContext.Provider>
         ;

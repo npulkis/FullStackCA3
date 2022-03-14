@@ -2,6 +2,7 @@ import {Component} from "react";
 import {DataContext} from "./Context";
 import {Button, Card, Col} from "react-bootstrap";
 import placeholder from "../placeholder/placeholder.jpg";
+import "./Cart.css";
 
 export class Cart extends Component{
     static contextType= DataContext;
@@ -18,6 +19,8 @@ export class Cart extends Component{
             return (
                 <>
                 {
+
+
                 cart.map((product) => (
                         <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
                             <Card className="border-0" >
@@ -27,9 +30,14 @@ export class Cart extends Component{
                                     <Card.Text>{product.description}</Card.Text>
                                     <Card.Text>Category:{product.category}</Card.Text>
                                     <Card.Text>Stock:{product.stock}</Card.Text>
-                                    <Button onClick={() => decrease(product._id)} >-</Button>
-                                    <Card.Text>Quantity: {product.count}</Card.Text>
-                                    <Button onClick={() => increase(product._id)} >+</Button>
+
+
+                                    <div class="flex-container">
+                                    <button class="count" onClick={() => decrease(product._id)} >-</button>
+                                    <Card.Text class="quantity"> {product.count} </Card.Text>
+                                    <button  class="count" onClick={() => increase(product._id)} >+</button>
+
+                                    </div>
                                     <Card.Text>Price: €{product.price}</Card.Text>
                                     <Button onClick={() => removeProduct(product._id)}>Remove</Button>
                                 </Card.Body>

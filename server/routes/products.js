@@ -10,13 +10,65 @@ const jwt = require("jsonwebtoken");
 
 
 
+//
+// router.get(`/products`, (req,res)=>
+// {
+//     productsModel.find((error,data) =>
+//     {
+//         res.json(data)
+//     })
+// })
 
-router.get(`/products`, (req,res)=>
-{
-    productsModel.find((error,data) =>
-    {
-        res.json(data)
-    })
+router.get(`/products`,async (req,res)=>{
+
+   try {
+       const products = await productsModel.find();
+       res.status(200).json({
+           status: 'success',
+           data:products
+       });
+   }catch (err){
+       res.status(404).json({
+           status: 'fail',
+           message: err
+       });
+   }
+
+})
+
+
+router.get(`/products/desc`,async (req,res)=>{
+
+    try {
+        const products = await productsModel.find().sort({price: -1});
+        res.status(200).json({
+            status: 'success',
+            data:products
+        });
+    }catch (err){
+        res.status(404).json({
+            status: 'fail',
+            message: err
+        });
+    }
+
+})
+
+router.get(`/products/asc`,async (req,res)=>{
+
+    try {
+        const products = await productsModel.find().sort({price: 1});
+        res.status(200).json({
+            status: 'success',
+            data:products
+        });
+    }catch (err){
+        res.status(404).json({
+            status: 'fail',
+            message: err
+        });
+    }
+
 })
 
 router.get(`/categories`,(req,res)=>
@@ -181,12 +233,38 @@ router.get(`/products/:id`, (req, res) =>
 //
 // })
 
-router.get(`/search/:search`, (req,res)=>
-{
-    productsModel.find({name: /test/i},(error,data) =>
-    {
-        res.json(data)
-    })
+// router.get(`/search/:search`, (req,res)=>
+// {
+//
+//
+//     productsModel.find({name: /test/i},(error,data) =>
+//     {
+//         res.json(data)
+//     })
+// })
+
+router.get(`/search/:search`,async (req,res)=>{
+
+    const searchQuery = req.params.search;
+
+
+
+    try {
+        const name = new RegExp(searchQuery,`i`);
+
+       const  products = await productsModel.find({$or:[ {name: name},{description: name}]});
+
+        res.status(200).json({
+            status: 'success',
+            data:products
+        });
+    }catch (err){
+        res.status(404).json({
+            status: 'fail',
+            message: err
+        });
+    }
+
 })
 
 
