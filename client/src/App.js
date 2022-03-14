@@ -19,6 +19,7 @@ import {ACCESS_LEVEL_GUEST} from "./config/global_constants"
 import LoggedInRoute from "./components/LoggedInRoute";
 import Logout from "./components/Logout";
 import {DataProvider} from "./components/Context";
+import {Cart} from "./components/Cart";
 
 
 
@@ -53,6 +54,7 @@ export default class App extends Component{
                         <Route exact path={"/DeleteCategory/:id"} component={DeleteCategory}/>
                         <Route exact path={"/DeleteUser/:id"} component={DeleteUser}/>
                         <Route exact path={"/EditProduct/:id"} component={EditProduct}/>
+                        <Route exact path={"/cart"} component={Cart}/>
                         <LoggedInRoute exact path={"/admin"} component={AdminMenu}/>
                         <LoggedInRoute exact path={"/logout"} component={Logout}/>
                     </Switch>
