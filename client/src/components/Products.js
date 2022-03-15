@@ -22,7 +22,10 @@ export default class Products extends Component{
 
     handleChange=(e) =>
     {
-        // this.setState({[e.target.name]: e.target.value})
+        this.setState({[e.target.name]: e.target.value})
+    }
+    handleCategoryChange = (e) =>{
+        this.setState({[e.target.name]: e.target.value})
         // console.log(this.state)
 
         this.context.filterProducts(e.target.value);
@@ -57,7 +60,7 @@ export default class Products extends Component{
                     <MDBInput hint="Search" type="text" name="search" onChange={this.handleChange}   onKeyUp={()=>searchProducts(this.state.search)}/>
                 </MDBCol>
 
-                <Form.Select name="category" onChange={this.handleChange} >
+                <Form.Select name="category" onChange={this.handleCategoryChange} >
                     <option >Select Category</option>
                     {categories.map((category) =>(
                         <option key={category._id} value={category.category}>{category.category}</option>
