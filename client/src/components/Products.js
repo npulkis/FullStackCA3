@@ -50,7 +50,7 @@ export default class Products extends Component{
 
     render() {
 
-    const{products,categories,addCart,searchProducts,filterProducts} = this.context;
+    const{products,categories,searchProducts} = this.context;
 
 
         return(
@@ -76,18 +76,7 @@ export default class Products extends Component{
                 <Row>
                     {products.map((product) => (
                         <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                            <Card className="border-0" >
-                                <Card.Body>
-                                    <Card.Img src={placeholder}/>
-                                    <Card.Title> {product.name}</Card.Title>
-                                    {/*<Card.Text>{product.description}</Card.Text>*/}
-                                    {/*<Card.Text>Category:{product.category}</Card.Text>*/}
-                                    {/*<Card.Text>Stock:{product.stock}</Card.Text>*/}
-                                    <Card.Text>Price: €{product.price}</Card.Text>
-                                    <Button onClick={()=> addCart(product._id)}>Add to cart</Button>
-                                    <Button>View</Button>
-                                </Card.Body>
-                            </Card>
+                           <Product product={product}/>
 
                         </Col>
                     ))}

@@ -11,9 +11,9 @@ export class AddProduct extends Component{
             description:"",
             stock:"",
             price:"",
-            images:"",
+            images:null,
             category:"",
-            categories:[]
+            categories:[],
         }
     }
 
@@ -46,17 +46,37 @@ export class AddProduct extends Component{
 
     handleFileChange = (e) =>
     {
-        this.setState({images: e.target.files[0]})
+        this.setState({images: e.target.files})
     }
 
     handleSubmit = (e) =>
     {
         e.preventDefault()
 
+
+        // name:"",
+        //     description:"",
+        // stock:"",
+        // price:"",
+        // images:null,
+        // category:"",
         let formData = new FormData()
+        formData.append("name",this.state.name)
+        formData.append("description",this.state.description)
+        formData.append("stock",this.state.stock)
+        formData.append("price",this.state.price)
+        formData.append("category",this.state.category)
         formData.append("productPhoto", this.state.images)
 
-        axios.post(`${SERVER_HOST}/products/add/${this.state.name}/${this.state.description}/${this.state.category}/${this.state.stock}/${this.state.price}`,formData,{headers: {"Content-type": "multipart/form-data"}})
+        if(this.state.images)
+        {
+            for(let i = 0; i < this.state.images.length; i++)
+            {
+                formData.append("productPhotos", this.state.images[i])
+            }
+        }
+
+        axios.post(`${SERVER_HOST}/products/`,formData,{headers: {"Content-type": "multipart/form-data"}})
             .then(res =>
             {
 
@@ -124,8 +144,8 @@ export class AddProduct extends Component{
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="images">
-                    <Form.Label>Product Name</Form.Label>
-                    <Form.Control type="file" name="images" onChange={this.handleFileChange}/>
+                    <Form.Label>Product Images</Form.Label>
+                    <Form.Control type="file" name="images" onChange={this.handleFileChange} multiple/>
                 </Form.Group>
                 <Button onClick={this.handleSubmit}>Submit</Button>
 

@@ -101,7 +101,7 @@ router.get(`/categories`,(req,res)=>
 })
 
 
-router.post(`/products/add/:name/:description/:category/:stock/:price`,upload.single("productPhoto"), (req,res) =>
+router.post(`/products/`, upload.array("productPhotos", parseInt(process.env.MAX_NUMBER_OF_UPLOAD_FILES_ALLOWED)),(req,res) =>
 {
     // jwt.verify(req.headers.authorization, process.env.JWT_PRIVATE_KEY, {algorithm: "HS256"}, (err, decodedToken) =>
     // {
@@ -109,19 +109,33 @@ router.post(`/products/add/:name/:description/:category/:stock/:price`,upload.si
 
         // if(decodedToken.accessLevel >= process.env.ACCESS_LEVEL_ADMIN){
 
+    let productDetails = new Object()
 
+    productDetails.name = req.body.name
+    productDetails.description = req.body.description
+    productDetails.price = req.body.price
+    productDetails.category = req.body.category
+    productDetails.stock = req.body.stock
 
-    if(!req.file)
+    productDetails.photos = []
+
+    req.files.map((file, index) =>
     {
-        res.json({errorMessage:`No file was selected to be uploaded`})
-    }
-    else if(req.file.mimetype !== "image/png" && req.file.mimetype !== "image/jpg" && req.file.mimetype !== "image/jpeg")
-    {
-        fs.unlink(`${process.env.UPLOADED_FILES_FOLDER}/${req.file.filename}`, (error) => {res.json({errorMessage:`Only .png, .jpg and .jpeg format accepted`})})
-    }else{
+        productDetails.photos[index] = {filename:`${file.filename}`}
+    })
 
 
-    productsModel.findOne({name:req.params.name}, (uniqueError, uniqueData) =>
+    // if(!req.file)
+    // {
+    //     res.json({errorMessage:`No file was selected to be uploaded`})
+    // }
+    // else if(req.file.mimetype !== "image/png" && req.file.mimetype !== "image/jpg" && req.file.mimetype !== "image/jpeg")
+    // {
+    //     fs.unlink(`${process.env.UPLOADED_FILES_FOLDER}/${req.file.filename}`, (error) => {res.json({errorMessage:`Only .png, .jpg and .jpeg format accepted`})})
+    // }else{
+
+
+    productsModel.findOne({name:req.body.name}, (uniqueError, uniqueData) =>
     {
         if(uniqueData)
         {
@@ -130,14 +144,15 @@ router.post(`/products/add/:name/:description/:category/:stock/:price`,upload.si
         else
         {
 
-                productsModel.create({name:req.params.name,description:req.params.description,category:req.params.category,stock:req.params.stock,price:req.params.price,productPhotoFilename:req.file.filename}, (err, data) =>
+                productsModel.create(productDetails, (err, data) =>
                 {
                     if(data)
                     {
 
-                        fs.readFile(`${process.env.UPLOADED_FILES_FOLDER}/${req.file.filename}`, 'base64', (err, fileData) =>{
-                            res.json({name: data.name,productPhoto:fileData})
-                        })
+                        // fs.readFile(`${process.env.UPLOADED_FILES_FOLDER}/${req.file.filename}`, 'base64', (err, fileData) =>{
+                        //     res.json({name: data.name,productPhoto:fileData})
+                        // })
+                        res.json(data)
 
 
                     }
@@ -148,7 +163,7 @@ router.post(`/products/add/:name/:description/:category/:stock/:price`,upload.si
                 })
 
         }
-    })}
+    })
     //     }else {
     //         res.json({errorMessage:`User not admin`})
     //     }
@@ -268,12 +283,10 @@ router.get(`/search/:search`,async (req,res)=>{
 
     const searchQuery = req.params.search;
 
-
-
     try {
         const name = new RegExp(searchQuery,`i`);
 
-       const  products = await productsModel.find({$or:[ {name: name},{description: name}]});
+        const  products = await productsModel.find({$or:[ {name: name},{description: name}]});
 
         res.status(200).json({
             status: 'success',
@@ -288,6 +301,25 @@ router.get(`/search/:search`,async (req,res)=>{
 
 })
 
+router.get(`/photo/:filename`,(req,res,next) =>{
+    console.log(req.params.filename)
+    fs.readFile(`${process.env.UPLOADED_FILES_FOLDER}/${req.params.filename}`, 'base64', (err, fileData) =>
+    {
+        if(err)
+        {
+            return next(err)
+        }
+
+        if(fileData)
+        {
+            return res.json({image:fileData})
+        }
+        else
+        {
+            return res.json({image:null})
+        }
+    })
+})
 
 
 module.exports = router

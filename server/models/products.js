@@ -1,5 +1,9 @@
 const mongoose = require(`mongoose`)
 
+let productPhotosSchema = new mongoose.Schema({
+    filename:{type:String}
+})
+
 let productsSchema = new mongoose.Schema(
     {
         name: {type: String, required:true},
@@ -7,8 +11,8 @@ let productsSchema = new mongoose.Schema(
         category:{type: String,required:true},
         stock: {type: Number,required:true},
         price: {type: Number, required:true},
-        productPhotoFilename: {type:String, default:""},
-        count:{type: Number, default: 1}
+        count:{type: Number, default: 1},
+        photos:[productPhotosSchema]
     },
     {
         collection: `products`
