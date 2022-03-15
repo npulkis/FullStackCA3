@@ -13,16 +13,19 @@ export default class Products extends Component{
         super(props)
 
         this.state= {
-            search:""
+            search:"",
+            category: ""
         }
     }
 
     static contextType= DataContext;
 
-    handleChange = (e) =>
+    handleChange=(e) =>
     {
-        this.setState({[e.target.name]: e.target.value})
-        console.log(this.state)
+        // this.setState({[e.target.name]: e.target.value})
+        // console.log(this.state)
+
+        this.context.filterProducts(e.target.value);
     }
 
 
@@ -44,7 +47,7 @@ export default class Products extends Component{
 
     render() {
 
-    const{products,categories,addCart,searchProducts} = this.context;
+    const{products,categories,addCart,searchProducts,filterProducts} = this.context;
 
 
         return(
@@ -55,7 +58,7 @@ export default class Products extends Component{
                 </MDBCol>
 
                 <Form.Select name="category" onChange={this.handleChange} >
-                    <option>Select Category</option>
+                    <option >Select Category</option>
                     {categories.map((category) =>(
                         <option key={category._id} value={category.category}>{category.category}</option>
                     ))}
@@ -88,7 +91,10 @@ export default class Products extends Component{
                 </Row>
 
 
+
             </div>
+
+
         )
     }
 

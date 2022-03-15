@@ -36,6 +36,27 @@ router.get(`/products`,async (req,res)=>{
 
 })
 
+router.get(`/filter/:category`,async (req,res)=>{
+
+
+    const filter = req.params.category;
+
+    try {
+        const products = await productsModel.find({category: filter});
+        res.status(200).json({
+            status: 'success',
+            data:products
+        });
+    }catch (err){
+        res.status(404).json({
+            status: 'fail',
+            message: err
+        });
+    }
+
+})
+
+
 
 router.get(`/products/desc`,async (req,res)=>{
 

@@ -195,13 +195,53 @@ export class DataProvider extends Component{
 
     }
 
+    filterProducts = (category) => {
+
+        console.log(category)
+
+        if (category === "Select Category"){
+            axios.get(`${SERVER_HOST}/products`)
+                .then(res =>
+                {
+                    if (res.data){
+                        if (res.data.errorMessage){
+                            console.log(res.data.errorMessage)
+                        }
+                        else {
+                            console.log("Products read")
+                            this.setState({products: res.data.data})
+
+                        }
+                    }else {
+                        console.log("Products not found")
+                    }
+                })
+
+        }else {
+            axios.get(`${SERVER_HOST}/filter/${category}`)
+                .then(res => {
+                    if (res.data) {
+                        if (res.data.errorMessage) {
+                            console.log(res.data.errorMessage)
+                        } else {
+                            console.log("Products read")
+                            this.setState({products: res.data.data})
+
+                        }
+                    } else {
+                        console.log("Products not found")
+                    }
+                })
+        }
+    }
+
 
     provider;
     render() {
 
         const {products,categories,cart,total}=this.state
-        const {addCart,removeProduct,decrease,increase,getTotal,clearCart,searchProducts}=this;
-        this.provider=<DataContext.Provider value={{products,categories,addCart,cart,total,removeProduct,decrease,increase,getTotal,clearCart,searchProducts}}>
+        const {addCart,removeProduct,decrease,increase,getTotal,clearCart,searchProducts,filterProducts}=this;
+        this.provider=<DataContext.Provider value={{products,categories,addCart,cart,total,removeProduct,decrease,increase,getTotal,clearCart,searchProducts,filterProducts}}>
             {this.props.children}
         </DataContext.Provider>
         ;
