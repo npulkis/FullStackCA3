@@ -3,6 +3,7 @@ import {DataContext} from "./Context";
 import {Button, Card, Col} from "react-bootstrap";
 import placeholder from "../placeholder/placeholder.jpg";
 import "./Cart.css";
+import CheckoutPaypal from "./CheckoutPaypal";
 
 export class Cart extends Component{
     static contextType= DataContext;
@@ -32,10 +33,10 @@ export class Cart extends Component{
                                     <Card.Text>Stock:{product.stock}</Card.Text>
 
 
-                                    <div class="flex-container">
-                                    <button class="count" onClick={() => decrease(product._id)} >-</button>
-                                    <Card.Text class="quantity"> {product.count} </Card.Text>
-                                    <button  class="count" onClick={() => increase(product._id)} >+</button>
+                                    <div className="flex-container">
+                                    <button className="count" onClick={() => decrease(product._id)} >-</button>
+                                    <Card.Text className="quantity"> {product.count} </Card.Text>
+                                    <button  className="count" onClick={() => increase(product._id)} >+</button>
 
                                     </div>
                                     <Card.Text>Price: €{product.price}</Card.Text>
@@ -46,6 +47,7 @@ export class Cart extends Component{
                         </Col>
                     ))}
             <h3>Total: €{total}</h3>
+                    <CheckoutPaypal total={total}/>
     </>
 
 

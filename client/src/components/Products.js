@@ -1,14 +1,13 @@
 import {Component, useState} from "react";
-import axios from "axios";
-import {SERVER_HOST} from "../config/global_constants";
 import {Button, Card, Col, Form, Row} from "react-bootstrap";
-import Product from "./Product";
 import { MDBCol, MDBInput } from "mdb-react-ui-kit";
 import {DataContext} from "./Context";
 import placeholder from "../placeholder/placeholder.jpg";
+import Product from "./Product";
 
 
 export default class Products extends Component{
+
     constructor(props) {
         super(props)
 
@@ -70,7 +69,7 @@ export default class Products extends Component{
                 <Form.Select>
                     <option>Sort</option>
                     <option>Sort price low-high</option>
-                    <option on>Sort price high-low</option>
+                    <option>Sort price high-low</option>
                 </Form.Select>
 
                 <Row>

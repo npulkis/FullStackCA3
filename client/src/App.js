@@ -49,7 +49,7 @@ export default class App extends Component{
                     <Switch>
                         {/*<Route exact path={"/register"} component={Register}/>*/}
                         <Route exact path={"/login"} component={LoginRegister}/>
-                        <Route exact path={"/products"} component={Products}/>
+                        <Route exact path={"/"} component={Products}/>
                         <Route exact path={"/DeleteProduct/:id"} component={DeleteProduct}/>
                         <Route exact path={"/DeleteCategory/:id"} component={DeleteCategory}/>
                         <Route exact path={"/DeleteUser/:id"} component={DeleteUser}/>

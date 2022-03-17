@@ -84,7 +84,7 @@ export class AddCategory extends Component{
                 </Table>
 
             <Form>
-                <Form.Group className="mb-3" controlId="category">
+                <Form.Group className="mb-3" id="category">
                     <Form.Label>Category Name</Form.Label>
                     <Form.Control value={this.state.name} name="category" id="category" type="text" onChange={this.handleChange}/>
                 </Form.Group>

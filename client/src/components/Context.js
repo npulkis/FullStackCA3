@@ -90,6 +90,7 @@ export class DataProvider extends Component{
             alert("The product has been added to cart.")
             console.log(this.state.cart)
         }
+        this.getTotal();
     };
 
     decrease = id =>{
