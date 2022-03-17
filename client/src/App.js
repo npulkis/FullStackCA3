@@ -20,6 +20,7 @@ import LoggedInRoute from "./components/LoggedInRoute";
 import Logout from "./components/Logout";
 import {DataProvider} from "./components/Context";
 import {Cart} from "./components/Cart";
+import PayPalMessage from "./components/PayPalMessage";
 
 
 
@@ -50,11 +51,12 @@ export default class App extends Component{
                         {/*<Route exact path={"/register"} component={Register}/>*/}
                         <Route exact path={"/login"} component={LoginRegister}/>
                         <Route exact path={"/"} component={Products}/>
-                        <Route exact path={"/DeleteProduct/:id"} component={DeleteProduct}/>
-                        <Route exact path={"/DeleteCategory/:id"} component={DeleteCategory}/>
-                        <Route exact path={"/DeleteUser/:id"} component={DeleteUser}/>
-                        <Route exact path={"/EditProduct/:id"} component={EditProduct}/>
                         <Route exact path={"/cart"} component={Cart}/>
+                        <Route exact path={"/PayPalMessage/:messageType/:payPalPaymentID"} component={PayPalMessage}/>
+                        <LoggedInRoute exact path={"/DeleteProduct/:id"} component={DeleteProduct}/>
+                        <LoggedInRoute exact path={"/DeleteCategory/:id"} component={DeleteCategory}/>
+                        <LoggedInRoute exact path={"/DeleteUser/:id"} component={DeleteUser}/>
+                        <LoggedInRoute exact path={"/EditProduct/:id"} component={EditProduct}/>
                         <LoggedInRoute exact path={"/admin"} component={AdminMenu}/>
                         <LoggedInRoute exact path={"/logout"} component={Logout}/>
                     </Switch>

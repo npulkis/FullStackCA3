@@ -38,7 +38,7 @@ export default class Logout extends Component
                         localStorage.accessLevel = ACCESS_LEVEL_GUEST
                         // localStorage.dataCart = []
                         // localStorage.dataTotal = 0
-
+                        this.context.clearCart()
                         this.setState({isLoggedIn:false})
 
                     }
@@ -53,11 +53,8 @@ export default class Logout extends Component
 
     render()
     {
-        const {clearCart} = this.context;
-
         return (
             <div>
-                {clearCart()}
                 {!this.state.isLoggedIn ? <Redirect to="/"/> : null}
 
             </div>

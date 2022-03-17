@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import {Link, Redirect} from "react-router-dom";
 import axios from "axios";
 import {ACCESS_LEVEL_GUEST, SERVER_HOST} from "../config/global_constants";
+import {DataContext} from "./Context";
 
 export default class Login extends Component{
     constructor(props)
@@ -16,6 +17,10 @@ export default class Login extends Component{
             isLoggedIn:false
         }
     }
+
+    static contextType = DataContext
+
+
     handleChange = (e) =>
     {
         this.setState({[e.target.name]: e.target.value})
@@ -32,6 +37,8 @@ export default class Login extends Component{
 
                 if(res.data)
                 {
+
+                    console.log(res.data)
                     if (res.data.errorMessage)
                     {
                         console.log(res.data.errorMessage)
@@ -41,9 +48,11 @@ export default class Login extends Component{
                         console.log("User logged in")
 
                         localStorage.name = res.data.name
+                        localStorage.email = res.data.email
                         localStorage.accessLevel = res.data.accessLevel
                         localStorage.token = res.data.token
 
+                       this.context.loggedIn()
                         this.setState({isLoggedIn:true})
                     }
                 }

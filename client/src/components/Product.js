@@ -31,6 +31,13 @@ export default class Product extends Component{
         const { product } = this.props;
         const{addCart} = this.context;
 
+        let inStockOrOutOfStock = null
+        if (product.stock < 1){
+            inStockOrOutOfStock = <Button disabled>Out of Stock</Button>
+        }else{
+            inStockOrOutOfStock= <Button onClick={()=> addCart(product._id)}>Add to cart</Button>
+        }
+
         return(
 
 
@@ -44,7 +51,7 @@ export default class Product extends Component{
                     {/*<Card.Text>Category:{product.category}</Card.Text>*/}
                     {/*<Card.Text>Stock:{product.stock}</Card.Text>*/}
                     <Card.Text>Price: €{product.price}</Card.Text>
-                    <Button onClick={()=> addCart(product._id)}>Add to cart</Button>
+                    {inStockOrOutOfStock}
                     <Button>View</Button>
                 </Card.Body>
             </Card>

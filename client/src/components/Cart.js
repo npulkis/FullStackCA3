@@ -10,10 +10,12 @@ export class Cart extends Component{
 
     componentDidMount() {
         this.context.getTotal();
+
     }
 
     render() {
         const {cart,increase,decrease, removeProduct,total} = this.context;
+
         if (cart.length === 0){
             return <h1>No Products in cart</h1>
         }else {
@@ -47,7 +49,7 @@ export class Cart extends Component{
                         </Col>
                     ))}
             <h3>Total: €{total}</h3>
-                    <CheckoutPaypal total={total}/>
+                    <CheckoutPaypal total={total} cart={cart}/>
     </>
 
 

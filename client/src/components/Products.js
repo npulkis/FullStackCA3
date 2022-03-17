@@ -53,7 +53,7 @@ export default class Products extends Component{
 
 
         return(
-            <div>
+            <div className="container">
                 {/*<h1>{cart.length}</h1>*/}
                 <MDBCol md="6">
                     <MDBInput hint="Search" type="text" name="search" onChange={this.handleChange}   onKeyUp={()=>searchProducts(this.state.search)}/>
