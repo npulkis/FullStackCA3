@@ -245,6 +245,24 @@ router.put(`/products/:id`, (req, res) => {
     // })
 })
 
+//update stock
+router.put(`/updateStock/:id/:stock`, (req, res) => {
+    // jwt.verify(req.headers.authorization, process.env.JWT_PRIVATE_KEY, {algorithm: "HS256"}, (err, decodedToken) => {
+
+    // if(decodedToken.accessLevel >= process.env.ACCESS_LEVEL_ADMIN) {
+
+    console.log("working")
+    productsModel.findByIdAndUpdate(req.params.id, {stock: req.params.stock}, (error, data) => {
+        res.json(data)
+    })
+    //     }else {
+    //         res.json({errorMessage:`User not admin`})
+    //
+    //     }
+    // })
+})
+
+
 // Read one record
 router.get(`/products/:id`, (req, res) =>
 {
@@ -254,30 +272,6 @@ router.get(`/products/:id`, (req, res) =>
     })
 })
 
-//
-// //Search records
-// router.get(`/search/:search`,  (req, res) =>{
-//
-//
-//
-//
-//             let search = new RegExp(req.params.search, 'i')
-//     productsModel.find((error,data) =>
-//     {
-//         res.json(data)
-//     })
-//
-// })
-
-// router.get(`/search/:search`, (req,res)=>
-// {
-//
-//
-//     productsModel.find({name: /test/i},(error,data) =>
-//     {
-//         res.json(data)
-//     })
-// })
 
 router.get(`/search/:search`,async (req,res)=>{
 

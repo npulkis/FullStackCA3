@@ -4,6 +4,8 @@ import { MDBCol, MDBInput } from "mdb-react-ui-kit";
 import {DataContext} from "./Context";
 import placeholder from "../placeholder/placeholder.jpg";
 import ProductCard from "./ProductCard";
+import axios from "axios";
+import {SERVER_HOST} from "../config/global_constants";
 
 
 export default class Products extends Component{

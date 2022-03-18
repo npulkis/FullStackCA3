@@ -42,8 +42,37 @@ export default class CheckoutPaypal extends Component{
             })
 
 
+        let tempCart = JSON.parse(localStorage.dataCart)
+
+        tempCart.map((product)=>{
+            let newStock = product.stock - product.count;
+            console.log(newStock)
+
+
+            axios.put(`${SERVER_HOST}/updateStock/${product._id}/${newStock}`)
+                .then(res =>
+                {
+                    if(res.data)
+                    {
+                        if (res.data.errorMessage)
+                        {
+                            console.log(res.data.errorMessage)
+                        }
+                        else
+                        {
+                            console.log(`Record updated`)
+                        }
+                    }
+                    else
+                    {
+                        console.log(`Record not updated`)
+                    }
+                })
+        })
+
 
         this.context.clearCart()
+
     }
 
 
