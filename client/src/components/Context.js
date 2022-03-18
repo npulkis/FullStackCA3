@@ -229,6 +229,11 @@ export class DataProvider extends Component {
         this.setState({isLoggedIn: true})
     }
 
+    setSort = (sortedProducts) =>{
+
+        this.setState({products: sortedProducts})
+    }
+
 
     provider;
 
@@ -244,11 +249,12 @@ export class DataProvider extends Component {
             clearCart,
             searchProducts,
             filterProducts,
-            loggedIn
+            loggedIn,
+            setSort
         } = this;
         this.provider = <DataContext.Provider value={{
             products, categories, addCart, cart, total, removeProduct,
-            decrease, increase, getTotal, clearCart, searchProducts, filterProducts, loggedIn
+            decrease, increase, getTotal, clearCart, searchProducts, filterProducts, loggedIn,setSort
         }}>
             {this.props.children}
         </DataContext.Provider>

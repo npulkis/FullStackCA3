@@ -31,6 +31,34 @@ export default class Products extends Component{
     }
 
 
+    sort = (e) =>{
+
+        let sortType = e.target.value
+
+        let tempSorted = []
+        const {products}=this.context
+
+
+        if (sortType == "low"){
+            tempSorted = products.sort((a,b) =>{return a.price - b.price})
+            this.context.setSort(tempSorted)
+
+        }else if(sortType == "high"){
+            tempSorted = products.sort((a,b) =>{return b.price - a.price})
+            this.context.setSort(tempSorted)
+        }else if(sortType == "a-z"){
+            tempSorted = products.sort((a,b) =>{return a.name.localeCompare(b.name)})
+            this.context.setSort(tempSorted)
+        }else if(sortType == "z-a"){
+            tempSorted = products.sort((a,b) =>{return b.name.localeCompare(a.name)})
+            this.context.setSort(tempSorted)
+        }
+
+
+    }
+
+
+
 
   // handleKeypress = (e) => {
   //       //it triggers by pressing the enter key
@@ -78,10 +106,12 @@ export default class Products extends Component{
                     </Col>
 
                     <Col>
-                        <Form.Select>
+                        <Form.Select onChange={this.sort}>
                             <option>Sort</option>
-                            <option>Sort price low-high</option>
-                            <option>Sort price high-low</option>
+                            <option value="low">Sort Price Low-High</option>
+                            <option value="high">Sort Price High-Low</option>
+                            <option value="a-z">Sort A-Z</option>
+                            <option value="z-a">Sort Z-A</option>
                         </Form.Select>
                     </Col>
                 </Row>
