@@ -6,6 +6,7 @@ import {ACCESS_LEVEL_GUEST} from "../config/global_constants"
 
 const LoggedInRoute = ({component: Component, exact, path, ...rest }) =>
     (
+
         <Route
             exact = {exact}
             path = {path}

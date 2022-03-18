@@ -1,5 +1,5 @@
 import {Component} from "react";
-import {Button, Form} from "react-bootstrap";
+import {Button, Container, Form} from "react-bootstrap";
 import axios from "axios";
 import {SERVER_HOST} from "../../config/global_constants";
 
@@ -88,7 +88,7 @@ export class AddProduct extends Component{
                     }
                     else // user successfully registered
                     {
-                        console.log("Product Added")
+                        console.log("ProductCard Added")
                         this.setState({ name:"",
                             description:"",
                             stock:"",
@@ -100,7 +100,7 @@ export class AddProduct extends Component{
                 }
                 else
                 {
-                    console.log("Product failed to add")
+                    console.log("ProductCard failed to add")
                 }
             })
 
@@ -110,7 +110,7 @@ export class AddProduct extends Component{
     render() {
 
         return(
-            <div>
+            <Container>
 
             <h1>Add Product</h1>
 
@@ -150,7 +150,7 @@ export class AddProduct extends Component{
                 <Button onClick={this.handleSubmit}>Submit</Button>
 
             </Form>
-            </div>
+            </Container>
         )
     }
 

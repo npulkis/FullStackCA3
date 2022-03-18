@@ -1,7 +1,7 @@
 import {Component} from "react";
 import axios from "axios";
 import {SERVER_HOST} from "../../config/global_constants";
-import {Button, Table} from "react-bootstrap"
+import {Button, Container, Table} from "react-bootstrap"
 import {Link} from "react-router-dom";
 
 export class UserList extends Component{
@@ -36,7 +36,7 @@ export class UserList extends Component{
     render() {
         return(
 
-            <div>
+            <Container>
                 <h1>User List</h1>
 
                 <Table striped bordered hover size="sm">
@@ -55,17 +55,20 @@ export class UserList extends Component{
                             <th>{user._id}</th>
                             <th>{user.name}</th>
                             <th>{user.email}</th>
-                            <th>Normal</th>
+                            {user.accessLevel == 1 ? <th>Normal</th> : <th>Admin</th>}
                             <th>
                                 <Link to= {"/DeleteUser/" + user._id}>
                                     <Button variant="danger">Delete</Button>
+                                </Link>
+                                <Link to= {"/orders/" + user.email}>
+                                    <Button>Order History</Button>
                                 </Link>
                             </th>
                         </tr>
                     ))}
                     </tbody>
                 </Table>
-            </div>
+            </Container>
         )
     }
 }

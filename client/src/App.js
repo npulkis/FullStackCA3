@@ -21,6 +21,8 @@ import Logout from "./components/Logout";
 import {DataProvider} from "./components/Context";
 import {Cart} from "./components/Cart";
 import PayPalMessage from "./components/PayPalMessage";
+import UserOrderHistory from "./components/UserOrderHistory";
+import Product from "./components/Product";
 
 
 
@@ -53,12 +55,14 @@ export default class App extends Component{
                         <Route exact path={"/"} component={Products}/>
                         <Route exact path={"/cart"} component={Cart}/>
                         <Route exact path={"/PayPalMessage/:messageType/:payPalPaymentID"} component={PayPalMessage}/>
+                        <Route exact path={"/product/:id"} component={Product}/>
                         <LoggedInRoute exact path={"/DeleteProduct/:id"} component={DeleteProduct}/>
                         <LoggedInRoute exact path={"/DeleteCategory/:id"} component={DeleteCategory}/>
                         <LoggedInRoute exact path={"/DeleteUser/:id"} component={DeleteUser}/>
                         <LoggedInRoute exact path={"/EditProduct/:id"} component={EditProduct}/>
                         <LoggedInRoute exact path={"/admin"} component={AdminMenu}/>
                         <LoggedInRoute exact path={"/logout"} component={Logout}/>
+                        <LoggedInRoute exact path={"/orders/:email"} component={UserOrderHistory}/>
                     </Switch>
 
                 </BrowserRouter>

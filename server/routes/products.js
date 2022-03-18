@@ -322,4 +322,26 @@ router.get(`/photo/:filename`,(req,res,next) =>{
 })
 
 
+router.get(`/product/:id`,async (req,res)=>{
+
+    const ID = req.params.id;
+
+    try {
+
+        const  product = await productsModel.findOne({_id: ID});
+
+        res.status(200).json({
+            status: 'success',
+            data:product
+        });
+    }catch (err){
+        res.status(404).json({
+            status: 'fail',
+            message: err
+        });
+    }
+
+})
+
+
 module.exports = router

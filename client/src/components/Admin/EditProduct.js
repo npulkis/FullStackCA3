@@ -1,5 +1,5 @@
 import {Component} from "react";
-import {Button, Form} from "react-bootstrap";
+import {Button, Container, Form} from "react-bootstrap";
 import axios from "axios";
 import {SERVER_HOST} from "../../config/global_constants";
 import {Redirect} from "react-router-dom";
@@ -108,7 +108,7 @@ export class EditProduct extends Component{
 
     render() {
         return(
-            <div>
+            <Container>
                 {this.state.redirectToAdminMenu ? <Redirect to="/admin"/> : null}
 
                 <h1>Edit Products</h1>
@@ -145,7 +145,7 @@ export class EditProduct extends Component{
                     <Button onClick={this.handleSubmit}>Submit</Button>
 
                 </Form>
-            </div>
+            </Container>
         )
     }
 }

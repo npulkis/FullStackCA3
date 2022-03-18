@@ -1,5 +1,5 @@
 import {Component} from "react";
-import {Button, Form, Table} from "react-bootstrap";
+import {Button, Col, Container, Form, Row, Table} from "react-bootstrap";
 import axios from "axios";
 import {SERVER_HOST} from "../../config/global_constants";
 import {Link} from "react-router-dom";
@@ -58,8 +58,13 @@ export class AddCategory extends Component{
         const{categories} = this.context;
         return(
 
-            <div>
-                <h1>Categories</h1>
+            <Container>
+            <h1>Categories</h1>
+           <Container>
+               <Row>
+
+                <Col>
+
 
                 <Table striped bordered hover size="sm">
                     <thead>
@@ -82,7 +87,9 @@ export class AddCategory extends Component{
                     </tbody>
 
                 </Table>
+                </Col>
 
+                   <Col>
             <Form>
                 <Form.Group className="mb-3" id="category">
                     <Form.Label>Category Name</Form.Label>
@@ -91,9 +98,10 @@ export class AddCategory extends Component{
 
                 <Button onClick={this.handleSubmit}>Submit</Button>
 
-            </Form>
-
-            </div>
+            </Form></Col>
+               </Row>
+           </Container>
+            </Container>
         )
     }
 

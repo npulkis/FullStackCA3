@@ -1,34 +1,40 @@
 import {Component} from "react";
-import {Button, Card} from "react-bootstrap";
-import placeholder from '../placeholder/placeholder.jpg';
-import {DataContext} from "./Context";
 import axios from "axios";
 import {SERVER_HOST} from "../config/global_constants";
+import {Button, Col, Container, Row} from "react-bootstrap";
+import {DataContext} from "./Context";
 
 export default class Product extends Component{
-
     static contextType= DataContext;
 
-    componentDidMount()
-    {
-        console.log(this.props.product.photos[0].filename)
+    constructor(props) {
+        super(props);
+        this.state={
+            product:[]
+        }
+    }
 
-        const image = this.props.product.photos[0].filename;
-        const imageID = this.props.product.photos[0]._id;
-       axios.get(`${SERVER_HOST}/photo/${image}`)
-                .then(res =>
-                {
-                    document.getElementById(imageID).src = `data:;base64,${res.data.image}`
-                })
-                .catch(err =>
-                {
-                    // do nothing
-                })
+    componentDidMount() {
+        axios.get(`${SERVER_HOST}/product/${this.props.match.params.id}`)
+            .then(res => {
+                if (res.data) {
+                    if (res.data.errorMessage) {
+                        console.log(res.data.errorMessage)
+                    } else {
+                        console.log("Product read")
+                        this.setState({product: res.data.data})
+
+                    }
+                } else {
+                    console.log("Product not found")
+                }
+            })
     }
 
 
     render() {
-        const { product } = this.props;
+       const {product} = this.state
+
         const{addCart} = this.context;
 
         let inStockOrOutOfStock = null
@@ -39,23 +45,18 @@ export default class Product extends Component{
         }
 
         return(
+            <Container>
+                <Col>
+                    <Row>{product.name}</Row>
+                    <Row>{product.description}</Row>
+                    <Row>{product.stock}</Row>
+                    <Row>€{product.price}</Row>
+                    <Row>{inStockOrOutOfStock}</Row>
+
+                </Col>
 
 
-
-            <Card className="border-0" >
-                <Card.Body>
-                    <Card.Img key={this.props.product.photos[0]._id} id={this.props.product.photos[0]._id} />
-
-                    <Card.Title> {product.name}</Card.Title>
-                    {/*<Card.Text>{product.description}</Card.Text>*/}
-                    {/*<Card.Text>Category:{product.category}</Card.Text>*/}
-                    {/*<Card.Text>Stock:{product.stock}</Card.Text>*/}
-                    <Card.Text>Price: €{product.price}</Card.Text>
-                    {inStockOrOutOfStock}
-                    <Button>View</Button>
-                </Card.Body>
-            </Card>
-
+            </Container>
         )
     }
 }

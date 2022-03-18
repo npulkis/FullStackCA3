@@ -1,7 +1,7 @@
 import {Component} from "react";
 import axios from "axios";
 import {SERVER_HOST} from "../../config/global_constants";
-import {Button, Table} from "react-bootstrap"
+import {Button, Container, Table} from "react-bootstrap"
 import {Link} from "react-router-dom";
 import {DataContext} from "../Context";
 
@@ -17,7 +17,7 @@ export class ProductList extends Component{
 
         return(
 
-            <div>
+           <Container>
                 <h1>Products List</h1>
 
         <Table striped bordered hover size="sm">
@@ -51,7 +51,7 @@ export class ProductList extends Component{
             ))}
             </tbody>
             </Table>
-            </div>
+           </Container>
             )
     }
 }
