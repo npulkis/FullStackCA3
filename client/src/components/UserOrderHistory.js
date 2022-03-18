@@ -1,8 +1,9 @@
 import React, {Component} from "react";
 import {ACCESS_LEVEL_ADMIN, SERVER_HOST} from "../config/global_constants";
 import axios from "axios";
-import {Table} from "react-bootstrap";
-import {Redirect} from "react-router-dom";
+import {Button, Col, Container, Row, Table} from "react-bootstrap";
+import {Link, Redirect} from "react-router-dom";
+import {map} from "react-bootstrap/ElementChildren";
 
 export default class UserOrderHistory extends Component{
 
@@ -57,30 +58,58 @@ render() {
 
                   <h1>Order History</h1>
 
-                  <Table striped bordered hover size="sm">
-                      <thead>
-                      <tr>
-                          <th>Order ID</th>
-                          <th>Products</th>
-                          <th>Total</th>
-                      </tr>
-                      </thead>
-                      <tbody>
+                  {/*<Table striped bordered hover size="sm">*/}
+                  {/*    <thead>*/}
+                  {/*    <tr>*/}
+                  {/*        <th>Order ID</th>*/}
+                  {/*        <th>Products</th>*/}
+                  {/*        <th>Total</th>*/}
+                  {/*    </tr>*/}
+                  {/*    </thead>*/}
+                  {/*    <tbody>*/}
+                  {/*    {this.state.orders.map((order)=>(*/}
+                  {/*        <tr key={order._id}>*/}
+                  {/*            <th>{order.paypalPaymentID}</th>*/}
+                  {/*            <th>*/}
+                  {/*                <div>*/}
+                  {/*                {order.products.map((product)=> (*/}
+
+                  {/*                    ` ${product.name} Q:${product.count},`*/}
+                  {/*                ))}*/}
+
+                  {/*                </div>*/}
+                  {/*            </th>*/}
+                  {/*            <th>{order.total}</th>*/}
+                  {/*        </tr>*/}
+                  {/*    ))}*/}
+                  {/*    </tbody>*/}
+
+                  {/*</Table>*/}
+
+                  <Container>
+                      <Row style={{backgroundColor: 'lightgray' , borderRadius: '8px',padding:'10px',marginBottom:'20px'}}>
+                          <Col>Order ID</Col>
+                          <Col>Products</Col>
+                          <Col>Total</Col>
+                          <Col>Return Order</Col>
+                      </Row>
                       {this.state.orders.map((order)=>(
-                          <tr key={order._id}>
-                              <th>{order.paypalPaymentID}</th>
-                              <th>
-                                  {order.products.map((product)=> (
+                          <Row style={{margin:'15px',paddingBottom:'10px',paddingTop:'10px',backgroundColor: "lightgray",borderRadius:'10px'}}>
+                              <Col>{order.paypalPaymentID}</Col>
+                              <Col>       {order.products.map((product)=> (
 
-                                      ` ${product.name} Q:${product.count},`
-                                  ))}
-                              </th>
-                              <th>{order.total}</th>
-                          </tr>
-                      ))}
-                      </tbody>
+                                  <Row>{product.name} Q:{product.count}</Row>
+                              ))}</Col>
+                              <Col>{order.total}</Col>
+                              <Col>{!order.returned? <Link to= {"/return/" + order._id}><Button>Return</Button></Link> : <Button disabled>Order Returned</Button>}</Col>
 
-                  </Table>
+                          </Row>
+
+                          ))}
+
+
+
+                  </Container>
               </div>
           )
       }

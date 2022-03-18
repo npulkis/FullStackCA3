@@ -6,7 +6,8 @@ let salesSchema = new mongoose.Schema(
         products: [Object],
         total: {type: Number, required:true},
         customerName: {type: String,required:true},
-        customerEmail: {type: String,required:true}
+        customerEmail: {type: String,required:true},
+        returned:{type:Boolean,default:false}
     },
     {
         collection: `sales`

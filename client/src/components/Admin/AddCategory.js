@@ -38,10 +38,10 @@ export class AddCategory extends Component{
                     else // user successfully registered
                     {
                         console.log("category Added")
-                        this.setState({categoryAdded:true})
-                        document.getElementById("category").value="";
 
-                        this.componentDidMount();
+                        document.getElementById("category").value="";
+                        this.setState({categoryAdded:true})
+                        // this.componentDidMount();
 
                     }
                 }

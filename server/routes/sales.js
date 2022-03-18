@@ -51,4 +51,48 @@ router.get(`/sales/:email`,async (req,res)=>{
 
 })
 
+
+router.put(`/return/:id`,async (req,res)=>{
+
+    const ID = req.params.id;
+
+    try {
+        // const name = new RegExp(searchQuery,`i`);
+
+        await salesModel.findOneAndUpdate(ID,{returned:true});
+
+        res.status(200).json({
+            status: 'success',
+        });
+    }catch (err){
+        res.status(404).json({
+            status: 'fail',
+            message: err
+        });
+    }
+
+})
+
+
+router.get(`/sale/:id`,async (req,res)=>{
+
+    const ID = req.params.id;
+
+    try {
+
+        const  product = await salesModel.findOne({_id: ID});
+
+        res.status(200).json({
+            status: 'success',
+            data:product
+        });
+    }catch (err){
+        res.status(404).json({
+            status: 'fail',
+            message: err
+        });
+    }
+
+})
+
 module.exports = router
