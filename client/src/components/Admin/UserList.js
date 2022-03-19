@@ -14,7 +14,7 @@ export class UserList extends Component{
 
 
     componentDidMount(){
-        axios.get(`${SERVER_HOST}/users`,{headers:{"authorization":localStorage.token}})
+        axios.get(`${SERVER_HOST}/users`)
             .then(res =>
             {
                 if (res.data){

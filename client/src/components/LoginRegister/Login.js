@@ -3,8 +3,8 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {Link, Redirect} from "react-router-dom";
 import axios from "axios";
-import {ACCESS_LEVEL_GUEST, SERVER_HOST} from "../config/global_constants";
-import {DataContext} from "./Context";
+import {ACCESS_LEVEL_GUEST, SERVER_HOST} from "../../config/global_constants";
+import {DataContext} from "../Context";
 
 export default class Login extends Component{
     constructor(props)
@@ -14,7 +14,8 @@ export default class Login extends Component{
         this.state = {
             loginEmail:"",
             loginPassword:"",
-            isLoggedIn:false
+            isLoggedIn:false,
+            wasSubmittedAtLeastOnce:false
         }
     }
 
@@ -32,19 +33,6 @@ export default class Login extends Component{
             .then(res =>
             {
 
-                localStorage.name = "GUEST"
-                localStorage.accessLevel = ACCESS_LEVEL_GUEST
-
-                if(res.data)
-                {
-
-                    console.log(res.data)
-                    if (res.data.errorMessage)
-                    {
-                        console.log(res.data.errorMessage)
-                    }
-                    else // user successfully logged in
-                    {
                         console.log("User logged in")
 
                         localStorage.name = res.data.name
@@ -54,13 +42,15 @@ export default class Login extends Component{
 
                        this.context.loggedIn()
                         this.setState({isLoggedIn:true})
-                    }
-                }
-                else
-                {
-                    console.log("Login failed")
-                }
-            })
+
+
+
+            }).catch(err =>
+        {
+            console.log(err)
+            this.setState({wasSubmittedAtLeastOnce:true})
+
+        })
     }
 
 

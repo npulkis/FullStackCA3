@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const createError = require("http-errors");
 
 const verifyJWT=  (req, res, next) =>
 {
@@ -6,7 +7,8 @@ const verifyJWT=  (req, res, next) =>
     {
         if (err)
         {
-            res.json({errorMessage:`User is not logged in`})
+            // res.json({errorMessage:`User is not logged in`})
+            return next(createError(401))
         }
         else
         {
@@ -27,7 +29,7 @@ const checkThatUserIsAnAdministrator = (req, res, next) =>
     }
     else
     {
-        return res.json({errorMessage:`User is not an administrator`})
+        return next(createError(401))
 
     }
 }

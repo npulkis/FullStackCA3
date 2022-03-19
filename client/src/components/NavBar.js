@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar"
 import Nav from  'react-bootstrap/Nav'
-import Register from "./Register";
+import Register from "./LoginRegister/Register";
 import {ACCESS_LEVEL_ADMIN, ACCESS_LEVEL_GUEST} from "../config/global_constants";
 import {DataContext} from "./Context";
 

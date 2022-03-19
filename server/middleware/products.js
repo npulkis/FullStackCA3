@@ -99,7 +99,7 @@ const createProduct = (req,res) => {
                 }
                 else
                 {
-                    res.json({errorMessage:`User was not registered`})
+                    res.status(500).send(err)
                 }
             })
 
@@ -111,13 +111,13 @@ const createCategory = (req,res) => {
 
     categoriesModel.findOne({category: req.params.category}, (uniqueError, uniqueData) => {
         if (uniqueData) {
-            res.json({errorMessage: `Category already exists`})
+            res.status(409).send(err)
         } else {
             categoriesModel.create({category: req.params.category}, (err, data) => {
                 if (data) {
                     res.json({category: data.category})
                 } else {
-                    res.json({errorMessage: `Category not added`})
+                    res.status(404).send(err)
                 }
             })
         }
