@@ -17,6 +17,7 @@ export default class ReturnOrder extends Component{
         axios.get(`${SERVER_HOST}/sale/${this.props.match.params.id}`)
             .then(res =>
             {
+                this.setState({returned:false})
                 if (res.data)
                 {
                     if (res.data.errorMessage){

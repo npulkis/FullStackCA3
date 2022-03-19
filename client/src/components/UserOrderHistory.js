@@ -20,7 +20,7 @@ componentDidMount() {
 
     if (localStorage.email === this.props.match.params.email || localStorage.accessLevel == ACCESS_LEVEL_ADMIN){
 
-        axios.get(`${SERVER_HOST}/sales/${this.props.match.params.email}`)
+        axios.get(`${SERVER_HOST}/sales/${this.props.match.params.email}`,{headers:{"authorization":localStorage.token}})
             .then(res =>
             {
                 if (res.data){

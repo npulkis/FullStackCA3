@@ -76,7 +76,7 @@ export class AddProduct extends Component{
             }
         }
 
-        axios.post(`${SERVER_HOST}/products/`,formData,{headers: {"Content-type": "multipart/form-data"}})
+        axios.post(`${SERVER_HOST}/products/`,formData,{headers:{"authorization":localStorage.token}})
             .then(res =>
             {
 
@@ -93,7 +93,7 @@ export class AddProduct extends Component{
                             description:"",
                             stock:"",
                             price:"",
-                            images:"",
+                            images:null,
                             category:""});
 
                     }

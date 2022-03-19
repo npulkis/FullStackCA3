@@ -36,7 +36,7 @@ export class EditProduct extends Component{
                 }
             })
 
-        axios.get(`${SERVER_HOST}/products/${this.props.match.params.id}`)
+        axios.get(`${SERVER_HOST}/product/${this.props.match.params.id}`)
             .then(res =>
             {
                 if(res.data)
@@ -48,11 +48,11 @@ export class EditProduct extends Component{
                     else
                     {
                         this.setState({
-                            name: res.data.name,
-                            description: res.data.description,
-                            category: res.data.category,
-                            stock: res.data.stock,
-                            price: res.data.price
+                            name: res.data.data.name,
+                            description: res.data.data.description,
+                            category: res.data.data.category,
+                            stock: res.data.data.stock,
+                            price: res.data.data.price
                         })
                     }
                 }
@@ -82,7 +82,7 @@ export class EditProduct extends Component{
             price: this.state.price
         }
 
-        axios.put(`${SERVER_HOST}/products/${this.props.match.params.id}`, productObject)
+        axios.put(`${SERVER_HOST}/products/${this.props.match.params.id}`, productObject,{headers:{"authorization":localStorage.token}})
             .then(res =>
             {
                 if(res.data)

@@ -12,7 +12,6 @@ export default class ProductCard extends Component{
 
     componentDidMount()
     {
-        console.log(this.props.product.photos[0].filename)
 
         const image = this.props.product.photos[0].filename;
         const imageID = this.props.product.photos[0]._id;

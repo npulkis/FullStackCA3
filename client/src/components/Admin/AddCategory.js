@@ -25,7 +25,7 @@ export class AddCategory extends Component{
     {
         e.preventDefault()
 
-        axios.post(`${SERVER_HOST}/products/add_category/${this.state.category}`)
+        axios.post(`${SERVER_HOST}/products/add_category/${this.state.category}`,{headers:{"authorization":localStorage.token}})
             .then(res =>
             {
 
