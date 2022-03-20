@@ -14,6 +14,7 @@ export default class Login extends Component{
         this.state = {
             loginEmail:"",
             loginPassword:"",
+            emailValid:false,
             isLoggedIn:false,
             wasSubmittedAtLeastOnce:false
         }
@@ -53,6 +54,24 @@ export default class Login extends Component{
         })
     }
 
+    checkEmail=()=>{
+        const pattern = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+
+        let email = document.getElementById("emailField")
+        if (!pattern.test(this.state.loginEmail)){
+
+            this.setState({emailValid:false})
+            email.innerText = "Email Not Valid"
+            email.style.color ="red";
+
+
+        }else if(pattern.test(this.state.loginEmail)){
+            this.setState({emailValid:true})
+            email.innerText = "Email Valid"
+            email.style.color ="green";
+        }
+    }
+
 
     render() {
         return(
@@ -63,9 +82,8 @@ export default class Login extends Component{
                 <Form>
                     <Form.Group className="mb-3" controlId="loginEmail">
                         <Form.Label>Email address</Form.Label>
-                        <Form.Control value={this.state.loginEmail} type="email" placeholder="Enter email" name="loginEmail" onChange={this.handleChange}/>
-                        <Form.Text className="text-muted">
-                            We'll never share your email with anyone else.
+                        <Form.Control value={this.state.loginEmail} type="email" placeholder="Enter email" name="loginEmail" onChange={this.handleChange} onKeyUp={this.checkEmail}/>
+                        <Form.Text id="emailField" className="text">
                         </Form.Text>
                     </Form.Group>
 
@@ -74,9 +92,11 @@ export default class Login extends Component{
                         <Form.Control value={this.state.loginPassword} type="password" name="loginPassword" placeholder="Password" onChange={this.handleChange} />
                     </Form.Group>
 
-                    <Button variant="primary" onClick={this.handleSubmit} >
+                    {this.state.emailValid && this.state.loginPassword.length > 7 ? <Button variant="primary" onClick={this.handleSubmit} >
                         Login
-                    </Button>
+                    </Button> :  <Button variant="primary" disabled >
+                        Login
+                    </Button>}
                     <Link to={"/"}>
                         <Button variant="danger" >Cancel</Button>
                     </Link>
