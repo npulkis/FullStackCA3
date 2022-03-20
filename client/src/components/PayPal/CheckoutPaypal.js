@@ -1,10 +1,11 @@
 import {Component} from "react";
 import {PayPalButton} from "react-paypal-button-v2";
-import {SANDBOX_CLIENT_ID, SERVER_HOST} from "../config/global_constants";
-import {DataContext} from "./Context";
+import {SANDBOX_CLIENT_ID, SERVER_HOST} from "../../config/global_constants";
+import {DataContext} from "../Context";
 import PayPalMessage from "./PayPalMessage";
 import {Redirect} from "react-router-dom";
 import axios from "axios";
+import './PayPalMessage.css'
 
 export default class CheckoutPaypal extends Component{
     static contextType = DataContext;
@@ -70,8 +71,12 @@ export default class CheckoutPaypal extends Component{
                 })
         })
 
+        this.setState({payPalMessageType:PayPalMessage.messageType.SUCCESS,
+            payPalPaymentID:paymentData.id,
+            redirectToPayPalMessage:true})
 
-        this.context.clearCart()
+
+
 
     }
 
@@ -79,6 +84,8 @@ export default class CheckoutPaypal extends Component{
     onError = errorData =>
     {
         console.log("PayPal error:", errorData)
+        this.setState({payPalMessageType:PayPalMessage.messageType.ERROR,
+            redirectToPayPalMessage:true})
     }
 
 
@@ -86,6 +93,8 @@ export default class CheckoutPaypal extends Component{
     {
         // The user pressed the Paypal checkout popup window cancel button or closed the Paypal checkout popup window
         console.log("Payment cancelled by user:", cancelData)
+        this.setState({payPalMessageType:PayPalMessage.messageType.CANCEL,
+            redirectToPayPalMessage:true})
     }
 
 

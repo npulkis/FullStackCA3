@@ -1,8 +1,11 @@
 import {Component} from "react";
 import {Link, Redirect} from "react-router-dom";
-import {Button} from "react-bootstrap";
+import {Button, Container,Col} from "react-bootstrap";
+import {DataContext} from "../Context";
 
 export default class PayPalMessage extends Component{
+
+    static contextType = DataContext
 
     static messageType = {SUCCESS:"success",
                           ERROR:"error",
@@ -18,6 +21,9 @@ export default class PayPalMessage extends Component{
             this.setState({heading:"PayPal Transaction Confirmation",
                 message:"Your PayPal transaction was successful.",
                 buttonColour:"green-button"})
+
+            this.context.clearCart()
+
         }
         else if(this.props.match.params.messageType === PayPalMessage.messageType.CANCEL)
         {
@@ -37,18 +43,32 @@ export default class PayPalMessage extends Component{
 
     render() {
         return(
-            <div className="payPalMessage">
+           <Container className="payPalMessage shadow-lg">
 
-                {this.state.redirectToHome ? <Redirect to="/"/> : null}
+               <Col>
+                   <h3>{this.state.heading}</h3>
+               </Col>
 
-                <h3>{this.state.heading}</h3>
-                <p>{this.props.match.params.message}</p>
-                <p>{this.state.message}</p>
+               <Col>
+                   <p>{this.props.match.params.message}</p>
+                   <p>{this.state.message}</p>
+               </Col>
 
-                {this.props.match.params.messageType === PayPalMessage.messageType.SUCCESS ? <p>Your PayPal payment confirmation is <span id="payPalPaymentID">{this.props.match.params.payPalPaymentID}</span></p> : null}
+               <Col>
+                   {this.props.match.params.messageType === PayPalMessage.messageType.SUCCESS ? <p>Your PayPal payment confirmation is <span id="payPalPaymentID">{this.props.match.params.payPalPaymentID}</span></p> : null}
+
+               </Col>
+
+
+               {this.state.redirectToHome ? <Redirect to="/"/> : null}
+
+
+
+
+
 
                 <p id="payPalPaymentIDButton"><Link  to={"/"}><Button>Continue</Button></Link></p>
-            </div>
+           </Container>
         )
     }
 
