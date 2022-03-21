@@ -43,17 +43,15 @@ export default class ProductCard extends Component{
 
             <Card className="shadow"  >
                 <Card.Body>
-                    <Card.Img key={this.props.product.photos[0]._id} id={this.props.product.photos[0]._id} />
+                    <Link to= {"/product/" + product._id}>
+                        <Card.Img key={this.props.product.photos[0]._id} id={this.props.product.photos[0]._id} />
+                    </Link>
+
 
                     <Card.Title> {product.name}</Card.Title>
-                    {/*<Card.Text>{product.description}</Card.Text>*/}
-                    {/*<Card.Text>Category:{product.category}</Card.Text>*/}
-                    {/*<Card.Text>Stock:{product.stock}</Card.Text>*/}
                     <Card.Text>Price: €{product.price}</Card.Text>
                     {inStockOrOutOfStock}
-                    <Link to= {"/product/" + product._id}>
-                      <Button style={{marginLeft:"5rem"}}>View</Button>
-                    </Link>
+
                 </Card.Body>
             </Card>
 

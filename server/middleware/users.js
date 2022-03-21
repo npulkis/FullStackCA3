@@ -2,6 +2,10 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const usersModel = require(`../models/users`)
 const createError = require("http-errors");
+const fs=require('fs')
+const JWT_PRIVATE_KEY = fs.readFileSync(process.env.JWT_PRIVATE_KEY_FILENAME, 'utf8')
+
+
 
 const registerUser = (req, res,next) => {
     // If a user with this email does not already exist, then create new user
@@ -15,7 +19,7 @@ const registerUser = (req, res,next) => {
                         const token = jwt.sign({
                             email: data.email,
                             accessLevel: data.accessLevel
-                        }, process.env.JWT_PRIVATE_KEY, {algorithm: 'HS256', expiresIn: process.env.JWT_EXPIRY})
+                        }, JWT_PRIVATE_KEY, {algorithm: 'HS256', expiresIn: process.env.JWT_EXPIRY})
 
                         res.json({name: data.name, accessLevel: data.accessLevel, token: token})
                     } if(err) {
@@ -40,7 +44,7 @@ const userLogin = (req, res) => {
                     const token = jwt.sign({
                         email: data.email,
                         accessLevel: data.accessLevel
-                    }, process.env.JWT_PRIVATE_KEY, {algorithm: 'HS256', expiresIn: process.env.JWT_EXPIRY})
+                    },JWT_PRIVATE_KEY, {algorithm: 'HS256', expiresIn: process.env.JWT_EXPIRY})
 
 
                     res.json({name: data.name, email: data.email, accessLevel: data.accessLevel, token: token})
