@@ -16,3 +16,16 @@
   padding-left: 10px;
   padding-right: 10px;
 }
+
+.payPalButton{
+  display: flex;
+  align-items: center;
+ margin-left: 250px;
+}
+
+@media screen and (max-width: 850px){
+  .payPalButton{
+    margin-left: 0;
+  }
+
+}

@@ -14,7 +14,7 @@ import {ACCESS_LEVEL_GUEST} from "./config/global_constants"
 import LoggedInRoute from "./components/LoggedInRoute";
 import Logout from "./components/Logout";
 import {DataProvider} from "./components/Context";
-import {Cart} from "./components/Cart";
+import {Cart} from "./components/Cart/Cart";
 import PayPalMessage from "./components/PayPal/PayPalMessage";
 import UserOrderHistory from "./components/UserOrderHistory";
 import Product from "./components/DetailedProduct/Product";
