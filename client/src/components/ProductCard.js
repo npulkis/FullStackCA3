@@ -1,6 +1,5 @@
 import {Component} from "react";
 import {Button, Card} from "react-bootstrap";
-import placeholder from '../placeholder/placeholder.jpg';
 import {DataContext} from "./Context";
 import axios from "axios";
 import {SERVER_HOST} from "../config/global_constants";
@@ -42,7 +41,7 @@ export default class ProductCard extends Component{
 
 
 
-            <Card style={{ width: '18rem' }} >
+            <Card className="shadow"  >
                 <Card.Body>
                     <Card.Img key={this.props.product.photos[0]._id} id={this.props.product.photos[0]._id} />
 
@@ -53,7 +52,7 @@ export default class ProductCard extends Component{
                     <Card.Text>Price: €{product.price}</Card.Text>
                     {inStockOrOutOfStock}
                     <Link to= {"/product/" + product._id}>
-                      <Button>View</Button>
+                      <Button style={{marginLeft:"5rem"}}>View</Button>
                     </Link>
                 </Card.Body>
             </Card>

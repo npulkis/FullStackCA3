@@ -3,13 +3,8 @@ import './App.css';
 import NavBar from './components/NavBar';
 import {Component} from "react";
 import {BrowserRouter, Route,Switch} from "react-router-dom";
-// import Register from "./components/Register";
-// import Login from "./components/Login";
 import LoginRegister from "./components/LoginRegister/LoginRegister";
-import addProduct from "./components/Admin/AddProduct";
 import Products from "./components/Products";
-import addCategory from "./components/Admin/AddCategory";
-import {productList} from "./components/Admin/ProductList";
 import DeleteProduct from "./components/Admin/DeleteProduct";
 import {AdminMenu} from "./components/Admin/AdminMenu";
 import DeleteCategory from "./components/Admin/DeleteCategory";
@@ -20,9 +15,9 @@ import LoggedInRoute from "./components/LoggedInRoute";
 import Logout from "./components/Logout";
 import {DataProvider} from "./components/Context";
 import {Cart} from "./components/Cart";
-import PayPalMessage from "./components/PayPalMessage";
+import PayPalMessage from "./components/PayPal/PayPalMessage";
 import UserOrderHistory from "./components/UserOrderHistory";
-import Product from "./components/Product";
+import Product from "./components/DetailedProduct/Product";
 import ReturnOrder from "./components/ReturnOrder";
 
 
@@ -30,8 +25,6 @@ import ReturnOrder from "./components/ReturnOrder";
 export default class App extends Component{
 
     render() {
-
-
 
 
         if (typeof localStorage.accessLevel === "undefined")
@@ -51,7 +44,6 @@ export default class App extends Component{
                 <div >
                 <BrowserRouter>
                     <Switch>
-                        {/*<Route exact path={"/register"} component={Register}/>*/}
                         <Route exact path={"/login"} component={LoginRegister}/>
                         <Route exact path={"/"} component={Products}/>
                         <Route exact path={"/cart"} component={Cart}/>

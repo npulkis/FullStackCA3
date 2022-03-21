@@ -14,7 +14,7 @@ export class UserList extends Component{
 
 
     componentDidMount(){
-        axios.get(`${SERVER_HOST}/users`)
+        axios.get(`${SERVER_HOST}/users`,{headers:{"authorization":localStorage.token}})
             .then(res =>
             {
                 if (res.data){
@@ -55,7 +55,7 @@ export class UserList extends Component{
                             <th>{user._id}</th>
                             <th>{user.name}</th>
                             <th>{user.email}</th>
-                            {user.accessLevel == 1 ? <th>Normal</th> : <th>Admin</th>}
+                            {user.accessLevel === 1 ? <th>Normal</th> : <th>Admin</th>}
                             <th>
                                 <Link to= {"/DeleteUser/" + user._id}>
                                     <Button variant="danger">Delete</Button>

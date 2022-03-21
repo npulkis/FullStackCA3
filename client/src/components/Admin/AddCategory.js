@@ -1,8 +1,8 @@
-import {Component} from "react";
+import React, {Component} from "react";
 import {Button, Col, Container, Form, Row, Table} from "react-bootstrap";
 import axios from "axios";
 import {SERVER_HOST} from "../../config/global_constants";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {DataContext} from "../Context";
 
 export class AddCategory extends Component{
@@ -10,7 +10,7 @@ export class AddCategory extends Component{
         super(props)
         this.state = {
             category:"",
-            categoryAdded:false
+            redirectToAdmin:false
         }
     }
     static contextType= DataContext;
@@ -40,8 +40,6 @@ export class AddCategory extends Component{
                         console.log("category Added")
 
                         document.getElementById("category").value="";
-                        this.setState({categoryAdded:true})
-                        // this.componentDidMount();
 
                     }
                 }
@@ -50,6 +48,8 @@ export class AddCategory extends Component{
                     console.log("Category failed to add")
                 }
             })
+        this.setState({redirectToAdmin:true})
+
     }
 
 
@@ -59,6 +59,7 @@ export class AddCategory extends Component{
         return(
 
             <Container>
+                {this.state.redirectToAdmin ? <Redirect to="/admin"/> : null}
             <h1>Categories</h1>
            <Container>
                <Row>

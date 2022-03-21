@@ -66,16 +66,6 @@ const createProduct = (req,res) => {
     })
 
 
-    // if(!req.file)
-    // {
-    //     res.json({errorMessage:`No file was selected to be uploaded`})
-    // }
-    // else if(req.file.mimetype !== "image/png" && req.file.mimetype !== "image/jpg" && req.file.mimetype !== "image/jpeg")
-    // {
-    //     fs.unlink(`${process.env.UPLOADED_FILES_FOLDER}/${req.file.filename}`, (error) => {res.json({errorMessage:`Only .png, .jpg and .jpeg format accepted`})})
-    // }else{
-
-
     productsModel.findOne({name:req.body.name}, (uniqueError, uniqueData) =>
     {
         if(uniqueData)
@@ -89,13 +79,7 @@ const createProduct = (req,res) => {
             {
                 if(data)
                 {
-
-                    // fs.readFile(`${process.env.UPLOADED_FILES_FOLDER}/${req.file.filename}`, 'base64', (err, fileData) =>{
-                    //     res.json({name: data.name,productPhoto:fileData})
-                    // })
                     res.json(data)
-
-
                 }
                 else
                 {
@@ -202,7 +186,6 @@ const searchProducts = async (req,res)=>{
 }
 
 const getPhoto = (req,res,next) =>{
-    console.log(req.params.filename)
     fs.readFile(`${process.env.UPLOADED_FILES_FOLDER}/${req.params.filename}`, 'base64', (err, fileData) =>
     {
         if(err)

@@ -3,11 +3,10 @@
   align-items: center;
   flex-direction: column;
   padding: 2rem ;
-  margin: 10rem 1.5rem;
   border-radius: 50px;
 
   width: 800px;
-  margin-left: 350px;
+  margin: 10rem 1.5rem 10rem 350px;
 }
 @media only screen and (max-width: 600px) {
   .payPalMessage{

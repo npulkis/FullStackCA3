@@ -1,11 +1,11 @@
-import {Component, useState} from "react";
-import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
+import {Component} from "react";
+import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import { MDBCol, MDBInput } from "mdb-react-ui-kit";
 import {DataContext} from "./Context";
-import placeholder from "../placeholder/placeholder.jpg";
 import ProductCard from "./ProductCard";
-import axios from "axios";
-import {SERVER_HOST} from "../config/global_constants";
+import './Products.css';
+
+
 
 
 export default class Products extends Component{
@@ -41,40 +41,23 @@ export default class Products extends Component{
         const {products}=this.context
 
 
-        if (sortType == "low"){
+        if (sortType === "low"){
             tempSorted = products.sort((a,b) =>{return a.price - b.price})
             this.context.setSort(tempSorted)
 
-        }else if(sortType == "high"){
+        }else if(sortType === "high"){
             tempSorted = products.sort((a,b) =>{return b.price - a.price})
             this.context.setSort(tempSorted)
-        }else if(sortType == "a-z"){
+        }else if(sortType === "a-z"){
             tempSorted = products.sort((a,b) =>{return a.name.localeCompare(b.name)})
             this.context.setSort(tempSorted)
-        }else if(sortType == "z-a"){
+        }else if(sortType === "z-a"){
             tempSorted = products.sort((a,b) =>{return b.name.localeCompare(a.name)})
             this.context.setSort(tempSorted)
         }
 
 
     }
-
-
-
-
-  // handleKeypress = (e) => {
-  //       //it triggers by pressing the enter key
-  //       if (e.keyCode === 13) {
-  //
-  //
-  //
-  //          console.log("Enter Pressed")
-  //
-  //
-  //           }
-  //
-  //   };
-
 
 
     render() {
@@ -85,15 +68,12 @@ export default class Products extends Component{
         return(
 
             <div>
-           <Container style={{backgroundColor: "#ffffff"}}>
+           <Container id="topBox" className="shadow"  style={{  background:" #ffffff",
+               borderRadius:"10px",
+               marginBottom:"2rem",
+               padding:"1rem",
+                marginTop:"2rem"}}>
                 {/*<h1>{cart.length}</h1>*/}
-               <Row >
-                   <Col>
-                       <MDBCol md="4">
-                           <MDBInput hint="Search" type="text" name="search" onChange={this.handleChange}   onKeyUp={()=>searchProducts(this.state.search)}/>
-                       </MDBCol>
-                   </Col>
-               </Row>
 
                 <Row>
                     <Col>
@@ -117,6 +97,18 @@ export default class Products extends Component{
                         </Form.Select>
                     </Col>
                 </Row>
+
+               <Row >
+                   <Col style={{display:"flex",alignItems:"center",justifyContent:"center",marginTop:"0.5rem"}}>
+                       <MDBCol md="7">
+                           <MDBInput label="Search Products" hint="Search" type="text" name="search" onChange={this.handleChange}   onKeyUp={()=>searchProducts(this.state.search)}/>
+
+                       </MDBCol>
+                   </Col>
+                   <Col  style={{display:"flex",alignItems:"center",justifyContent:"center",marginTop:"0.5rem"}}>
+                       <Button  onClick={this.context.reset}>  &nbsp; &nbsp;&nbsp;Reset &nbsp; &nbsp; &nbsp;</Button>
+                   </Col>
+               </Row>
 
            </Container>
 

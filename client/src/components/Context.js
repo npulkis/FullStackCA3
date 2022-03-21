@@ -234,12 +234,30 @@ export class DataProvider extends Component {
         this.setState({products: sortedProducts})
     }
 
+    reset = ()=>{
+
+            axios.get(`${SERVER_HOST}/products`)
+                .then(res => {
+                    if (res.data) {
+                        if (res.data.errorMessage) {
+                            console.log(res.data.errorMessage)
+                        } else {
+                            console.log("Products read")
+                            this.setState({products: res.data.data})
+
+                        }
+                    } else {
+                        console.log("Products not found")
+                    }
+                })
+    }
+
 
     provider;
 
     render() {
 
-        const {products, categories, cart, total, isLoggedIn} = this.state
+        const {products, categories, cart, total} = this.state
         const {
             addCart,
             removeProduct,
@@ -250,11 +268,12 @@ export class DataProvider extends Component {
             searchProducts,
             filterProducts,
             loggedIn,
-            setSort
+            setSort,
+            reset
         } = this;
         this.provider = <DataContext.Provider value={{
             products, categories, addCart, cart, total, removeProduct,
-            decrease, increase, getTotal, clearCart, searchProducts, filterProducts, loggedIn,setSort
+            decrease, increase, getTotal, clearCart, searchProducts, filterProducts, loggedIn,setSort,reset
         }}>
             {this.props.children}
         </DataContext.Provider>

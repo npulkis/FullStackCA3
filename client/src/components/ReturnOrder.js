@@ -86,9 +86,6 @@ export default class ReturnOrder extends Component{
                         this.setState({product: res.data})
                        newStock = this.state.product.data.stock + product.count
 
-                        console.log(newStock)
-
-
 
                         axios.put(`${SERVER_HOST}/updateStock/${product._id}/${newStock}`)
                             .then(res =>

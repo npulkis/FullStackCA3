@@ -7,7 +7,6 @@ const registerUser = (req, res,next) => {
     // If a user with this email does not already exist, then create new user
     usersModel.findOne({email: req.params.email}, (err, uniqueData) => {
         if (uniqueData) {
-           // return next(createError(409,'Email is already registered'))
             res.status(409).send(err)
         } else {
             bcrypt.hash(req.params.password, parseInt(process.env.PASSWORD_HASH_SALT_ROUNDS), (error, hash) => {

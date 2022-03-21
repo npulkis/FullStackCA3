@@ -9,12 +9,12 @@ export class AdminMenu extends Component{
 
     render() {
         return(
-           <Container>
-                <Accordion>
+           <Container style={{justifyContent:"center", marginTop:"80px"}}>
+                <Accordion className="shadow">
                     <Accordion.Item eventKey="1">
                         <Accordion.Header>Add Category</Accordion.Header>
                         <Accordion.Body>
-                        <AddCategory/>
+                            <AddCategory/>
                         </Accordion.Body>
                     </Accordion.Item>
 

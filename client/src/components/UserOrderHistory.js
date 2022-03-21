@@ -1,9 +1,8 @@
 import React, {Component} from "react";
 import {ACCESS_LEVEL_ADMIN, SERVER_HOST} from "../config/global_constants";
 import axios from "axios";
-import {Button, Col, Container, Row, Table} from "react-bootstrap";
+import {Button, Col, Container, Row} from "react-bootstrap";
 import {Link, Redirect} from "react-router-dom";
-import {map} from "react-bootstrap/ElementChildren";
 
 export default class UserOrderHistory extends Component{
 
@@ -18,7 +17,7 @@ export default class UserOrderHistory extends Component{
 
 componentDidMount() {
 
-    if (localStorage.email === this.props.match.params.email || localStorage.accessLevel == ACCESS_LEVEL_ADMIN){
+    if (localStorage.email === this.props.match.params.email || localStorage.accessLevel === ACCESS_LEVEL_ADMIN){
 
         axios.get(`${SERVER_HOST}/sales/${this.props.match.params.email}`,{headers:{"authorization":localStorage.token}})
             .then(res =>
@@ -47,7 +46,7 @@ componentDidMount() {
 
 
 render() {
-      if (this.state.orders.length ==0){
+      if (this.state.orders.length ===0){
 
 
           return <div> {this.state.restricted ? <Redirect to="/"/> : null}<h1>No orders</h1></div>
@@ -58,33 +57,6 @@ render() {
 
                   <h1>Order History</h1>
 
-                  {/*<Table striped bordered hover size="sm">*/}
-                  {/*    <thead>*/}
-                  {/*    <tr>*/}
-                  {/*        <th>Order ID</th>*/}
-                  {/*        <th>Products</th>*/}
-                  {/*        <th>Total</th>*/}
-                  {/*    </tr>*/}
-                  {/*    </thead>*/}
-                  {/*    <tbody>*/}
-                  {/*    {this.state.orders.map((order)=>(*/}
-                  {/*        <tr key={order._id}>*/}
-                  {/*            <th>{order.paypalPaymentID}</th>*/}
-                  {/*            <th>*/}
-                  {/*                <div>*/}
-                  {/*                {order.products.map((product)=> (*/}
-
-                  {/*                    ` ${product.name} Q:${product.count},`*/}
-                  {/*                ))}*/}
-
-                  {/*                </div>*/}
-                  {/*            </th>*/}
-                  {/*            <th>{order.total}</th>*/}
-                  {/*        </tr>*/}
-                  {/*    ))}*/}
-                  {/*    </tbody>*/}
-
-                  {/*</Table>*/}
 
                   <Container>
                       <Row style={{backgroundColor: 'lightgray' , borderRadius: '8px',padding:'10px',marginBottom:'20px'}}>

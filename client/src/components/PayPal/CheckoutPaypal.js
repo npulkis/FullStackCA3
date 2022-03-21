@@ -99,8 +99,6 @@ export default class CheckoutPaypal extends Component{
 
 
     render() {
-        const environment = "sandbox";
-        const client_id= {sandbox:SANDBOX_CLIENT_ID}
 
         const redirect = `/PayPalMessage/${this.state.payPalMessageType}/${this.state.payPalPaymentID}`
 

@@ -7,7 +7,6 @@ const verifyJWT=  (req, res, next) =>
     {
         if (err)
         {
-            // res.json({errorMessage:`User is not logged in`})
             return next(createError(401))
         }
         else

@@ -3,7 +3,7 @@ import {DataContext} from "./Context";
 import {Button, Card, Col} from "react-bootstrap";
 import placeholder from "../placeholder/placeholder.jpg";
 import "./Cart.css";
-import CheckoutPaypal from "./CheckoutPaypal";
+import CheckoutPaypal from "./PayPal/CheckoutPaypal";
 
 export class Cart extends Component{
     static contextType= DataContext;
